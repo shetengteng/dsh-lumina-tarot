@@ -105,19 +105,25 @@ export function createLuminaOverlay(
     const sessionId = readSessionId(props)
     if (sessionId) mirrorSession(sessionId)
     const recentWorkspaceId = readRecentWorkspaceId(props)
+    const sessionIdRef = useRef(sessionId)
+    const recentRef = useRef(recentWorkspaceId)
+    sessionIdRef.current = sessionId
+    recentRef.current = recentWorkspaceId
 
     const executeLine = useCallback(async (line: string) => {
       const execute = ctx.remote?.commands?.execute
       if (typeof execute !== 'function') throw new Error('当前环境没有命令通道')
-      const id = await ensureSession(sessionId, recentWorkspaceId, {
+      const actions = {
         connectWorkspace: props.connectWorkspace ?? fallbackActions.connectWorkspace,
         openSession: props.openSession ?? fallbackActions.openSession,
         createSession: props.createSession ?? fallbackActions.createSession,
-      })
+        listedCurrent: props.listedCurrent ?? fallbackActions.listedCurrent,
+      }
+      const id = await ensureSession(sessionIdRef.current, recentRef.current, actions)
       const result = unwrapCommandResult(await execute(id, line, []))
       if (result.kind === 'error') throw new Error(result.text || '命令失败')
       return result
-    }, [sessionId, recentWorkspaceId, props.connectWorkspace, props.openSession, props.createSession])
+    }, [props.connectWorkspace, props.openSession, props.createSession, props.listedCurrent])
 
     const history = useHistoryLayer(executeLine)
     const closeLayers = useCallback(() => {

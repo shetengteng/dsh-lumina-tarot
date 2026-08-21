@@ -53,7 +53,7 @@ export function registerLuminaCommands(
     description: 'Lumina 塔罗：draw / today / last / history / interpret / export / clear',
     input: { hint: 'draw [spreadId] [question] | today | last | history | interpret | export | clear' },
     recordInput: false,
-    handler: async ({ commandId, rawInput, agent, signal }: CommandInvocation) => {
+    handler: async ({ rawInput, agent, signal }: CommandInvocation) => {
       signal?.throwIfAborted?.()
       const parts = rawInput.trim().split(/\s+/).filter(Boolean)
       const sub = (parts[0] ?? 'draw').toLowerCase()
@@ -80,7 +80,7 @@ export function registerLuminaCommands(
         if (sub === 'interpret') {
           const reading = await resolveLast(state)
           if (!agent?.followup) return { kind: 'error' as const, text: '当前会话无法发起解读。' }
-          await followupInterpret(agent, reading, commandId)
+          await followupInterpret(agent, reading)
           return { kind: 'success' as const }
         }
         if (sub === 'draw' || sub === '') {

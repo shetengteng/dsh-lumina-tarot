@@ -40,12 +40,13 @@ export function apply(ctx: {
     installLuminaNavIcon(sectionLabel, ctx.locale)
   }
 
+  const sessionActions = bindSessionActions(ctx)
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({
     name: 'shell.overlay',
     id: 'dsh-lumina-tarot',
     order: 1000,
     registrant: 'dsh-lumina-tarot',
-    inject: () => bindSessionActions(ctx),
+    inject: () => sessionActions,
   }, createLuminaOverlay(ctx, scope)))
 
   ctx.slots.inject('tool.call.toolview', () => {

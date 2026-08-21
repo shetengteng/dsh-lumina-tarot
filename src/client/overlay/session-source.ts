@@ -35,6 +35,7 @@ export type SessionActions = {
   connectWorkspace: (workspaceId: string) => Promise<string>
   openSession: (id: string) => void
   createSession?: (opts?: { workspaceId?: string }) => Promise<string>
+  listedCurrent: () => string | undefined
 }
 
 export function bindSessionActions(ctx: {
@@ -56,6 +57,13 @@ export function bindSessionActions(ctx: {
       const fn = ctx.sessions?.create
       if (typeof fn !== 'function') throw new Error('need-session')
       return fn.call(ctx.sessions, opts)
+    },
+    listedCurrent: () => {
+      try {
+        return ctx.sessions?.list?.getSnapshot?.()?.current
+      } catch {
+        return undefined
+      }
     },
   }
 }
@@ -90,6 +98,8 @@ export function readRecentWorkspaceId(props: {
   } catch { return undefined }
 }
 
+const SETTLE_MS = 280
+
 async function openNewSession(
   recentWorkspaceId: string | undefined,
   actions: SessionActions,
@@ -103,6 +113,7 @@ async function openNewSession(
   if (!id) throw new Error('need-session')
   actions.openSession(id)
   mirrorSession(id)
+  await new Promise((resolve) => setTimeout(resolve, SETTLE_MS))
   return id
 }
 
@@ -115,6 +126,13 @@ export async function ensureSession(
     mirrorSession(current)
     return current
   }
+  const listed = actions.listedCurrent?.()
+  if (listed) {
+    mirrorSession(listed)
+    return listed
+  }
+  const remembered = mirroredSession()
+  if (remembered) return remembered
   if (!pendingEnsure) {
     pendingEnsure = openNewSession(recentWorkspaceId, actions).finally(() => {
       pendingEnsure = undefined

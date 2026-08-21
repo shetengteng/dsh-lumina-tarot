@@ -1,16 +1,7 @@
 import type { ReadingPayload } from './domain/types.ts'
 
-const FOLLOWUP_GUARD = '__dshLuminaFollowupGuard'
-const DEDUPE_MS = 2000
-
 export type FollowupAgent = {
   followup: (message: unknown) => void
-}
-
-type FollowupClaim = {
-  readingId: string
-  at: number
-  commandId?: string
 }
 
 function cardLine(card: ReadingPayload['cards'][number]): string {
@@ -26,18 +17,6 @@ export function buildInterpretPrompt(reading: ReadingPayload): string {
   if (reading.question) lines.push(`问题：${reading.question}`)
   lines.push(`${reading.spreadName}：`, ...reading.cards.map(cardLine))
   return lines.join('\n')
-}
-
-function claimFollowup(readingId: string, commandId?: string): boolean {
-  const bag = globalThis as Record<string, FollowupClaim | undefined>
-  const prev = bag[FOLLOWUP_GUARD]
-  const now = Date.now()
-  if (prev) {
-    if (commandId && prev.commandId === commandId) return false
-    if (prev.readingId === readingId && now - prev.at < DEDUPE_MS) return false
-  }
-  bag[FOLLOWUP_GUARD] = { readingId, at: now, commandId }
-  return true
 }
 
 async function buildFollowupMessage(text: string, source: unknown): Promise<unknown> {
@@ -65,9 +44,7 @@ async function buildFollowupMessage(text: string, source: unknown): Promise<unkn
 export async function followupInterpret(
   agent: FollowupAgent,
   reading: ReadingPayload,
-  commandId?: string,
 ): Promise<void> {
-  if (!claimFollowup(reading.id, commandId)) return
   const text = buildInterpretPrompt(reading)
   const summary = reading.question
     ? `请解读「${reading.question}」`
