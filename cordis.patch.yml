@@ -1,0 +1,5 @@
+# Dual-face bundle: one Host row. The Web client is discovered from
+# package.json dsh.client and served at /plugins/dsh-lumina-tarot/client.js.
+- insert:
+    - id: lumina-tarot
+      name: dsh-lumina-tarot

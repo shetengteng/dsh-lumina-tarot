@@ -1,0 +1,113 @@
+[
+  {
+    "id": "single",
+    "name": "单张指引",
+    "subtitle": "一卡答疑",
+    "description": "最适合日常、情绪快照、当下能量。抽一张，直指核心。",
+    "count": 1,
+    "positions": [
+      {
+        "index": 0,
+        "name": "当下指引",
+        "role": "Now"
+      }
+    ]
+  },
+  {
+    "id": "three-card",
+    "name": "三牌时间线",
+    "subtitle": "Past · Present · Future",
+    "description": "最经典的三牌阵，适合理清情境发展脉络与趋势。",
+    "count": 3,
+    "positions": [
+      {
+        "index": 0,
+        "name": "过去",
+        "role": "Past"
+      },
+      {
+        "index": 1,
+        "name": "现在",
+        "role": "Present"
+      },
+      {
+        "index": 2,
+        "name": "未来",
+        "role": "Future"
+      }
+    ]
+  },
+  {
+    "id": "cross",
+    "name": "十字牌阵",
+    "subtitle": "情境 · 阻碍 · 建议",
+    "description": "快速剖析问题结构，适合工作、人际与选择困境。",
+    "count": 5,
+    "positions": [
+      {
+        "index": 0,
+        "name": "情境核心",
+        "role": "Situation"
+      },
+      {
+        "index": 1,
+        "name": "当前挑战",
+        "role": "Challenge"
+      },
+      {
+        "index": 2,
+        "name": "潜意识",
+        "role": "Subconscious"
+      },
+      {
+        "index": 3,
+        "name": "显意识",
+        "role": "Conscious"
+      },
+      {
+        "index": 4,
+        "name": "建议方向",
+        "role": "Advice"
+      }
+    ]
+  },
+  {
+    "id": "celtic-lite",
+    "name": "凯尔特精简",
+    "subtitle": "6 卡深度",
+    "description": "以经典凯尔特十字为骨架的精简版，适合较复杂的课题。",
+    "count": 6,
+    "positions": [
+      {
+        "index": 0,
+        "name": "现状",
+        "role": "Present"
+      },
+      {
+        "index": 1,
+        "name": "挑战",
+        "role": "Challenge"
+      },
+      {
+        "index": 2,
+        "name": "根基",
+        "role": "Root"
+      },
+      {
+        "index": 3,
+        "name": "过去",
+        "role": "Past"
+      },
+      {
+        "index": 4,
+        "name": "可能",
+        "role": "Potential"
+      },
+      {
+        "index": 5,
+        "name": "结果",
+        "role": "Outcome"
+      }
+    ]
+  }
+]

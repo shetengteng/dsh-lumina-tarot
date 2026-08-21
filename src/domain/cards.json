@@ -1,0 +1,2320 @@
+[
+  {
+    "id": "fool",
+    "number": 0,
+    "name": "愚者",
+    "nameEn": "The Fool",
+    "arcana": "major",
+    "keywords": [
+      "新开始",
+      "自由",
+      "冒险",
+      "直觉"
+    ],
+    "element": "风",
+    "planet": "天王星",
+    "symbol": "☀",
+    "summary": "踏入未知的第一步，像孩童一样无所畏惧，相信直觉带你穿越迷雾。",
+    "upright": {
+      "meaning": "开始新的旅程，放下对结果的执念，让好奇心引领你。",
+      "love": "一段轻盈自由的感情正在开始，不要被过去框住。",
+      "career": "适合尝试新赛道、接受意料之外的机会。",
+      "advice": "跳进去，一切最终会长出意义。"
+    },
+    "reversed": {
+      "meaning": "鲁莽、冲动，或因恐惧停留在原地。",
+      "love": "害怕投入，或对关系过度理想化。",
+      "career": "决策草率或拒绝成长。",
+      "advice": "先落地，再追光。"
+    }
+  },
+  {
+    "id": "magician",
+    "number": 1,
+    "name": "魔术师",
+    "nameEn": "The Magician",
+    "arcana": "major",
+    "keywords": [
+      "意志",
+      "创造",
+      "整合",
+      "行动"
+    ],
+    "element": "风",
+    "planet": "水星",
+    "symbol": "∞",
+    "summary": "手握天地之间的所有元素，你已拥有让事情发生的全部材料。",
+    "upright": {
+      "meaning": "资源齐备，专注意志即可显化。",
+      "love": "主动表达，吸引力正在顶峰。",
+      "career": "适合启动项目、谈判与推进。",
+      "advice": "想清楚，再动手。"
+    },
+    "reversed": {
+      "meaning": "才华被误用，或陷入自我怀疑。",
+      "love": "言行不一，或玩弄他人感情。",
+      "career": "动力分散、执行脱节。",
+      "advice": "回到目标本身，减少表演。"
+    }
+  },
+  {
+    "id": "high-priestess",
+    "number": 2,
+    "name": "女祭司",
+    "nameEn": "The High Priestess",
+    "arcana": "major",
+    "keywords": [
+      "直觉",
+      "潜意识",
+      "静默",
+      "神秘"
+    ],
+    "element": "水",
+    "planet": "月亮",
+    "symbol": "☾",
+    "summary": "在安静中听见内在的声音，真相藏在表象的帷幕之后。",
+    "upright": {
+      "meaning": "信任直觉，答案正在水面下酝酿。",
+      "love": "深层连结正在生长，不急于言语。",
+      "career": "适合研究、构思、整理内在秩序。",
+      "advice": "听，比说更重要。"
+    },
+    "reversed": {
+      "meaning": "压抑情感，或被表象迷惑。",
+      "love": "回避真实感受，或被秘密困住。",
+      "career": "忽视直觉，做出错误推断。",
+      "advice": "允许自己知道你所知道的。"
+    }
+  },
+  {
+    "id": "empress",
+    "number": 3,
+    "name": "皇后",
+    "nameEn": "The Empress",
+    "arcana": "major",
+    "keywords": [
+      "丰盛",
+      "滋养",
+      "感性",
+      "孕育"
+    ],
+    "element": "地",
+    "planet": "金星",
+    "symbol": "♀",
+    "summary": "自然的母亲，让万物在温柔的节奏里生长、盛放。",
+    "upright": {
+      "meaning": "丰饶、创造力、被爱环绕的阶段。",
+      "love": "关系稳定且充满亲密感。",
+      "career": "创意型工作迎来丰收。",
+      "advice": "对自己和他人都温柔一点。"
+    },
+    "reversed": {
+      "meaning": "自我价值失衡，或陷入依赖。",
+      "love": "过度付出，忽视自身需要。",
+      "career": "停滞，创意堵塞。",
+      "advice": "先把自己填满。"
+    }
+  },
+  {
+    "id": "emperor",
+    "number": 4,
+    "name": "皇帝",
+    "nameEn": "The Emperor",
+    "arcana": "major",
+    "keywords": [
+      "秩序",
+      "权威",
+      "掌控",
+      "结构"
+    ],
+    "element": "火",
+    "zodiac": "白羊座",
+    "symbol": "♂",
+    "summary": "立下边界与规则，才有安稳生长的王国。",
+    "upright": {
+      "meaning": "建立秩序、稳定根基的阶段。",
+      "love": "需要承担与承诺的成熟关系。",
+      "career": "适合管理、制定计划、稳中求进。",
+      "advice": "结构是自由的前提。"
+    },
+    "reversed": {
+      "meaning": "独断、控制欲过强，或权威缺位。",
+      "love": "强势压制或逃避责任。",
+      "career": "机制僵化，或缺乏决断。",
+      "advice": "权力的反面是倾听。"
+    }
+  },
+  {
+    "id": "hierophant",
+    "number": 5,
+    "name": "教皇",
+    "nameEn": "The Hierophant",
+    "arcana": "major",
+    "keywords": [
+      "传统",
+      "教导",
+      "信念",
+      "仪式"
+    ],
+    "element": "地",
+    "zodiac": "金牛座",
+    "symbol": "✠",
+    "summary": "传承的智慧连接过去与未来，在既有道路上也能走出自己的步调。",
+    "upright": {
+      "meaning": "向前辈学习，尊重共同的价值框架。",
+      "love": "传统、承诺型的关系。",
+      "career": "通过系统化学习获得进阶。",
+      "advice": "站在巨人的肩膀上再往上走一步。"
+    },
+    "reversed": {
+      "meaning": "打破陈规，或被教条束缚。",
+      "love": "跳出父辈期待，选择真实。",
+      "career": "反叛既有系统，寻找新路径。",
+      "advice": "辨别哪些规则值得保留。"
+    }
+  },
+  {
+    "id": "lovers",
+    "number": 6,
+    "name": "恋人",
+    "nameEn": "The Lovers",
+    "arcana": "major",
+    "keywords": [
+      "选择",
+      "融合",
+      "价值观",
+      "吸引"
+    ],
+    "element": "风",
+    "zodiac": "双子座",
+    "symbol": "♥",
+    "summary": "两个灵魂相遇，也是一次对自我价值的坦诚确认。",
+    "upright": {
+      "meaning": "重要的亲密关系或关键选择。",
+      "love": "深度共鸣、灵魂级别的吸引。",
+      "career": "合作与合伙带来机遇。",
+      "advice": "选择与你真正同频的人与事。"
+    },
+    "reversed": {
+      "meaning": "价值观冲突、三角关系或犹豫不决。",
+      "love": "关系失衡，回避承诺。",
+      "career": "合作裂缝显现。",
+      "advice": "先对自己诚实。"
+    }
+  },
+  {
+    "id": "chariot",
+    "number": 7,
+    "name": "战车",
+    "nameEn": "The Chariot",
+    "arcana": "major",
+    "keywords": [
+      "意志",
+      "胜利",
+      "前进",
+      "控制"
+    ],
+    "element": "水",
+    "zodiac": "巨蟹座",
+    "symbol": "⛭",
+    "summary": "驾驭内心的两股力量，将方向握在自己手里。",
+    "upright": {
+      "meaning": "意志主导，克服阻力前行。",
+      "love": "为关系主动迈出关键一步。",
+      "career": "克服困难、达成目标。",
+      "advice": "设定方向，然后全力奔赴。"
+    },
+    "reversed": {
+      "meaning": "失去焦点、方向摇摆。",
+      "love": "冷战或失衡的推拉。",
+      "career": "计划被打乱，需重新校准。",
+      "advice": "停一停，再选一条路。"
+    }
+  },
+  {
+    "id": "strength",
+    "number": 8,
+    "name": "力量",
+    "nameEn": "Strength",
+    "arcana": "major",
+    "keywords": [
+      "柔韧",
+      "勇气",
+      "耐心",
+      "驯服"
+    ],
+    "element": "火",
+    "zodiac": "狮子座",
+    "symbol": "∞",
+    "summary": "真正的力量不是压制，而是以温柔驯服自己的猛兽。",
+    "upright": {
+      "meaning": "以温柔而坚定的方式处理难题。",
+      "love": "稳定的陪伴，愿意等待与成长。",
+      "career": "以韧性走过漫长挑战。",
+      "advice": "慢不是弱，是另一种强。"
+    },
+    "reversed": {
+      "meaning": "自我怀疑、情绪失控。",
+      "love": "过度压抑或情绪化。",
+      "career": "信心不足，遭遇内耗。",
+      "advice": "给自己一点宽容。"
+    }
+  },
+  {
+    "id": "hermit",
+    "number": 9,
+    "name": "隐士",
+    "nameEn": "The Hermit",
+    "arcana": "major",
+    "keywords": [
+      "独处",
+      "内省",
+      "指引",
+      "智慧"
+    ],
+    "element": "地",
+    "zodiac": "处女座",
+    "symbol": "✦",
+    "summary": "提灯走进自己的内在世界，答案是一段向内的旅程。",
+    "upright": {
+      "meaning": "适合静修、反思与整理思绪。",
+      "love": "关系需要空间，或渴望真挚连接。",
+      "career": "专注精进，积蓄深度。",
+      "advice": "暂时走远一点，看得更清。"
+    },
+    "reversed": {
+      "meaning": "孤立、封闭或拒绝他人。",
+      "love": "逃避关系，不愿沟通。",
+      "career": "过度独行，忽视协作。",
+      "advice": "允许一点光进来。"
+    }
+  },
+  {
+    "id": "wheel",
+    "number": 10,
+    "name": "命运之轮",
+    "nameEn": "Wheel of Fortune",
+    "arcana": "major",
+    "keywords": [
+      "循环",
+      "转机",
+      "命运",
+      "起伏"
+    ],
+    "element": "火",
+    "planet": "木星",
+    "symbol": "☯",
+    "summary": "轮盘转动，机会与变化如期而至，顺其自然也是一种智慧。",
+    "upright": {
+      "meaning": "好运到来，重要的转折点。",
+      "love": "缘分的重要节点。",
+      "career": "获得新机会或岗位晋升。",
+      "advice": "抓住机会，同时准备好承担。"
+    },
+    "reversed": {
+      "meaning": "逆境、失控或被惯性拖住。",
+      "love": "重复的旧模式需要被打破。",
+      "career": "遭遇阻碍，需要调整。",
+      "advice": "承认循环，才能跳出循环。"
+    }
+  },
+  {
+    "id": "justice",
+    "number": 11,
+    "name": "正义",
+    "nameEn": "Justice",
+    "arcana": "major",
+    "keywords": [
+      "公平",
+      "真相",
+      "抉择",
+      "因果"
+    ],
+    "element": "风",
+    "zodiac": "天秤座",
+    "symbol": "⚖",
+    "summary": "天平在静默中称量一切，每一份因都会结出对应的果。",
+    "upright": {
+      "meaning": "做出理性、公正的选择。",
+      "love": "关系进入坦诚、责任的阶段。",
+      "career": "法律、合同、谈判相关事宜。",
+      "advice": "以事实和清明的头脑做决定。"
+    },
+    "reversed": {
+      "meaning": "偏见、推诿或不公。",
+      "love": "回避责任，不愿面对真相。",
+      "career": "纠纷或需要重新核实的问题。",
+      "advice": "诚实是最高效的策略。"
+    }
+  },
+  {
+    "id": "hanged-man",
+    "number": 12,
+    "name": "吊人",
+    "nameEn": "The Hanged Man",
+    "arcana": "major",
+    "keywords": [
+      "停顿",
+      "视角",
+      "牺牲",
+      "臣服"
+    ],
+    "element": "水",
+    "planet": "海王星",
+    "symbol": "✧",
+    "summary": "暂停不是失败，换一个视角，世界以另一种方式向你展开。",
+    "upright": {
+      "meaning": "放下执念，在停顿中获得新视角。",
+      "love": "暂停，不急于定义。",
+      "career": "需要等待或换位思考。",
+      "advice": "让发生的事先发生。"
+    },
+    "reversed": {
+      "meaning": "抗拒改变，自我牺牲无效。",
+      "love": "委屈求全，失去真实。",
+      "career": "拖延或逃避本该面对的事。",
+      "advice": "区分妥协与勉强。"
+    }
+  },
+  {
+    "id": "death",
+    "number": 13,
+    "name": "死神",
+    "nameEn": "Death",
+    "arcana": "major",
+    "keywords": [
+      "结束",
+      "转化",
+      "释放",
+      "重生"
+    ],
+    "element": "水",
+    "zodiac": "天蝎座",
+    "symbol": "☠",
+    "summary": "旧章节落幕，不是终结，而是新生命破土前必经的黑暗。",
+    "upright": {
+      "meaning": "深刻的转变，必要的告别。",
+      "love": "关系阶段的彻底改变。",
+      "career": "结束一段不再适合的工作或项目。",
+      "advice": "放下才能腾出位置。"
+    },
+    "reversed": {
+      "meaning": "拒绝转变，滞留于过去。",
+      "love": "抓着已结束的关系不放。",
+      "career": "抗拒改变的代价在累积。",
+      "advice": "承认结束，才能开始。"
+    }
+  },
+  {
+    "id": "temperance",
+    "number": 14,
+    "name": "节制",
+    "nameEn": "Temperance",
+    "arcana": "major",
+    "keywords": [
+      "平衡",
+      "调和",
+      "耐心",
+      "融合"
+    ],
+    "element": "火",
+    "zodiac": "射手座",
+    "symbol": "⚗",
+    "summary": "在两极之间寻找恰到好处的比例，生活是一场温柔的调和。",
+    "upright": {
+      "meaning": "生活节奏回到平衡，整合内外。",
+      "love": "稳定、互相成全的关系。",
+      "career": "合作顺畅、节奏稳定。",
+      "advice": "慢一点，稳一点。"
+    },
+    "reversed": {
+      "meaning": "极端、冲突或失衡。",
+      "love": "互相消耗，缺乏耐心。",
+      "career": "过度、拖延或资源错配。",
+      "advice": "找回你的中线。"
+    }
+  },
+  {
+    "id": "devil",
+    "number": 15,
+    "name": "恶魔",
+    "nameEn": "The Devil",
+    "arcana": "major",
+    "keywords": [
+      "束缚",
+      "执念",
+      "欲望",
+      "阴影"
+    ],
+    "element": "地",
+    "zodiac": "摩羯座",
+    "symbol": "☽",
+    "summary": "枷锁是自己挂上的，看清阴影，就已经开始松动它。",
+    "upright": {
+      "meaning": "成瘾、执念或物欲主导。",
+      "love": "激烈却充满控制欲的关系。",
+      "career": "被利益或恐惧驱动。",
+      "advice": "承认你其实可以离开。"
+    },
+    "reversed": {
+      "meaning": "挣脱束缚，看清模式。",
+      "love": "从消耗关系中觉醒。",
+      "career": "摆脱不健康的工作模式。",
+      "advice": "解开一个扣子，就会松一圈。"
+    }
+  },
+  {
+    "id": "tower",
+    "number": 16,
+    "name": "塔",
+    "nameEn": "The Tower",
+    "arcana": "major",
+    "keywords": [
+      "剧变",
+      "瓦解",
+      "真相",
+      "觉醒"
+    ],
+    "element": "火",
+    "planet": "火星",
+    "symbol": "⚡",
+    "summary": "一道闪电劈开虚假的塔，痛，但让你重新站在真实的地基上。",
+    "upright": {
+      "meaning": "突如其来的变动，旧结构崩塌。",
+      "love": "关系的真相被揭开。",
+      "career": "项目或岗位发生剧变。",
+      "advice": "崩塌也是一种清理。"
+    },
+    "reversed": {
+      "meaning": "延迟的崩塌，内在动摇。",
+      "love": "关系隐患未被面对。",
+      "career": "危机前的征兆已经出现。",
+      "advice": "该动就动，别拖。"
+    }
+  },
+  {
+    "id": "star",
+    "number": 17,
+    "name": "星星",
+    "nameEn": "The Star",
+    "arcana": "major",
+    "keywords": [
+      "希望",
+      "疗愈",
+      "指引",
+      "宁静"
+    ],
+    "element": "风",
+    "zodiac": "水瓶座",
+    "symbol": "✦",
+    "summary": "夜空最亮的那颗星，把柔和的光洒进你的伤口，让一切慢慢好起来。",
+    "upright": {
+      "meaning": "希望重燃，进入疗愈阶段。",
+      "love": "温柔修复，重新相信。",
+      "career": "灵感回归，看到长期方向。",
+      "advice": "慢慢来，一切都值得。"
+    },
+    "reversed": {
+      "meaning": "信心不足，暂失方向。",
+      "love": "怀疑对方或怀疑自己。",
+      "career": "灵感枯竭，需要休息。",
+      "advice": "允许自己暂时相信。"
+    }
+  },
+  {
+    "id": "moon",
+    "number": 18,
+    "name": "月亮",
+    "nameEn": "The Moon",
+    "arcana": "major",
+    "keywords": [
+      "潜意识",
+      "幻象",
+      "梦境",
+      "模糊"
+    ],
+    "element": "水",
+    "zodiac": "双鱼座",
+    "symbol": "☽",
+    "summary": "月光朦胧，真假难辨，在恐惧与直觉的交错中走向更深的自己。",
+    "upright": {
+      "meaning": "情绪与潜意识浮现，真相未明。",
+      "love": "关系存在模糊与误解。",
+      "career": "信息不完整，需谨慎判断。",
+      "advice": "跟随直觉，但保留理性。"
+    },
+    "reversed": {
+      "meaning": "迷雾散去，真相浮现。",
+      "love": "看清关系的全貌。",
+      "career": "厘清之前的混乱局面。",
+      "advice": "光已经回来了。"
+    }
+  },
+  {
+    "id": "sun",
+    "number": 19,
+    "name": "太阳",
+    "nameEn": "The Sun",
+    "arcana": "major",
+    "keywords": [
+      "喜悦",
+      "成功",
+      "清晰",
+      "活力"
+    ],
+    "element": "火",
+    "planet": "太阳",
+    "symbol": "☀",
+    "summary": "阳光朗照，一切都被看见、被祝福、被鼓励。",
+    "upright": {
+      "meaning": "喜悦、清晰与成功的时刻。",
+      "love": "阳光、坦率、愉快的关系。",
+      "career": "成就到来，被认可。",
+      "advice": "庆祝你走到这里。"
+    },
+    "reversed": {
+      "meaning": "短暂乌云，信心受挫。",
+      "love": "小摩擦，很快消散。",
+      "career": "进展不如预期，但方向对。",
+      "advice": "别被云挡住，太阳还在。"
+    }
+  },
+  {
+    "id": "judgement",
+    "number": 20,
+    "name": "审判",
+    "nameEn": "Judgement",
+    "arcana": "major",
+    "keywords": [
+      "觉醒",
+      "召唤",
+      "整合",
+      "重生"
+    ],
+    "element": "火",
+    "planet": "冥王星",
+    "symbol": "✝",
+    "summary": "来自内心深处的召唤把你叫醒，整合过去，成为更完整的自己。",
+    "upright": {
+      "meaning": "重要的觉醒与整合时刻。",
+      "love": "旧关系的重新定位或和解。",
+      "career": "回应召唤，进入下一阶段。",
+      "advice": "听见它，然后回应。"
+    },
+    "reversed": {
+      "meaning": "自我批判，难以宽恕。",
+      "love": "纠结于过去，不愿和解。",
+      "career": "忽视内在召唤，错失时机。",
+      "advice": "先原谅自己。"
+    }
+  },
+  {
+    "id": "world",
+    "number": 21,
+    "name": "世界",
+    "nameEn": "The World",
+    "arcana": "major",
+    "keywords": [
+      "完成",
+      "圆满",
+      "整体",
+      "庆祝"
+    ],
+    "element": "地",
+    "planet": "土星",
+    "symbol": "◯",
+    "summary": "一个阶段圆满落幕，四方力量汇聚，你已成为你想成为的人。",
+    "upright": {
+      "meaning": "完成与圆满，进入整体感。",
+      "love": "关系抵达下一阶段的里程碑。",
+      "career": "项目圆满，成就感丰沛。",
+      "advice": "允许自己庆祝。"
+    },
+    "reversed": {
+      "meaning": "临门一脚未落地，未完成感。",
+      "love": "关系卡在最后一步。",
+      "career": "差一点到达，不要放弃。",
+      "advice": "把最后一环也完成。"
+    }
+  },
+  {
+    "id": "wands-ace",
+    "number": 1,
+    "name": "权杖一",
+    "nameEn": "Ace of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "ace",
+    "keywords": [
+      "灵感",
+      "冲劲",
+      "新点子",
+      "火花"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "一束火苗从掌心点燃，新的冲动正在生长，等你去点燃它。",
+    "upright": {
+      "meaning": "灵感突至，行动的冲劲正强，启动项目的好时机。",
+      "love": "一见钟情或久违的悸动，身体先于理智作出回应。",
+      "career": "新机会、新点子涌现，大胆说出你的提案。",
+      "advice": "别想太多，先做一小步。"
+    },
+    "reversed": {
+      "meaning": "想法被压下，冲劲卡在原地，或被现实拉扯。",
+      "love": "犹豫不决，或热度来得快去得快。",
+      "career": "项目启动受阻，动力不足。",
+      "advice": "找回最初让你心动的那个瞬间。"
+    }
+  },
+  {
+    "id": "wands-2",
+    "number": 2,
+    "name": "权杖二",
+    "nameEn": "Two of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "2",
+    "keywords": [
+      "规划",
+      "展望",
+      "选择",
+      "世界在手"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "站在高处俯瞰地图，你已拥有一切出发的条件，只差一个方向。",
+    "upright": {
+      "meaning": "站上起点俯瞰全局，计划已成形，等待决定往哪走。",
+      "love": "关系走向稳定，两人开始讨论未来。",
+      "career": "战略视野清晰，适合做中长期规划。",
+      "advice": "选一条路，就全力以赴。"
+    },
+    "reversed": {
+      "meaning": "瞻前顾后，错过出发的窗口。",
+      "love": "害怕承诺，或把选择权全交给对方。",
+      "career": "过度规划反而停滞，或视野太小。",
+      "advice": "走出去，地图会在脚下展开。"
+    }
+  },
+  {
+    "id": "wands-3",
+    "number": 3,
+    "name": "权杖三",
+    "nameEn": "Three of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "3",
+    "keywords": [
+      "远见",
+      "扩张",
+      "等待回音",
+      "贸易"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "船已起航，你站在岸边望向远方，耐心等待回响。",
+    "upright": {
+      "meaning": "前期播种已完成，进入等待与扩张阶段。",
+      "love": "异地、远程或长线关系正在稳步前进。",
+      "career": "合作机会拓展，关注海外或跨界。",
+      "advice": "耐心，好消息正在路上。"
+    },
+    "reversed": {
+      "meaning": "计划延误，或远方的回信迟迟未来。",
+      "love": "距离让感情降温。",
+      "career": "合作卡在关键节点。",
+      "advice": "不要中途放弃，给它多一点时间。"
+    }
+  },
+  {
+    "id": "wands-4",
+    "number": 4,
+    "name": "权杖四",
+    "nameEn": "Four of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "4",
+    "keywords": [
+      "庆祝",
+      "归属",
+      "里程碑",
+      "团聚"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "庆典的花环被高高挂起，你终于看见自己的努力开花结果。",
+    "upright": {
+      "meaning": "阶段性成果达成，适合庆祝与休整。",
+      "love": "关系进入稳定阶段，可能谈到同居、婚礼。",
+      "career": "项目上线、团队扩张，值得好好犒劳自己。",
+      "advice": "允许自己享受当下的成就。"
+    },
+    "reversed": {
+      "meaning": "表面热闹但内心空落，或家人聚会暗藏张力。",
+      "love": "看起来稳定，却缺少深度交流。",
+      "career": "成就被忽视，或庆功流于形式。",
+      "advice": "问自己：这是我真正想要的归属吗？"
+    }
+  },
+  {
+    "id": "wands-5",
+    "number": 5,
+    "name": "权杖五",
+    "nameEn": "Five of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "5",
+    "keywords": [
+      "竞争",
+      "混战",
+      "分歧",
+      "磨合"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "五把权杖在空中交错，人人都想发声，混乱本身就是成长的一部分。",
+    "upright": {
+      "meaning": "小冲突、争论不断，竞争推动你找出真实立场。",
+      "love": "沟通分歧明显，吵过之后反而更靠近。",
+      "career": "团队意见分散，需要一个清晰的仲裁。",
+      "advice": "别回避，把话说清楚。"
+    },
+    "reversed": {
+      "meaning": "内耗加剧，或选择了压抑回避。",
+      "love": "冷战伤害比争吵更深。",
+      "career": "内部政治消耗效率。",
+      "advice": "回到目标本身，而不是赢过对方。"
+    }
+  },
+  {
+    "id": "wands-6",
+    "number": 6,
+    "name": "权杖六",
+    "nameEn": "Six of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "6",
+    "keywords": [
+      "胜利",
+      "认可",
+      "凯旋",
+      "聚光"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "花冠戴上头顶，人群为你欢呼，把努力化作掌声。",
+    "upright": {
+      "meaning": "成就被看见，得到公开认可。",
+      "love": "众人祝福的感情或表白被接受。",
+      "career": "升职、获奖、拿下关键项目。",
+      "advice": "享受这一刻，再把经验打包带走。"
+    },
+    "reversed": {
+      "meaning": "胜利变了味，或功劳被抢走。",
+      "love": "外人看着光鲜，私下关系紧张。",
+      "career": "被忽视的贡献，或虚假的光环。",
+      "advice": "真正的肯定来自对自己的承诺。"
+    }
+  },
+  {
+    "id": "wands-7",
+    "number": 7,
+    "name": "权杖七",
+    "nameEn": "Seven of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "7",
+    "keywords": [
+      "防御",
+      "坚守",
+      "挑战",
+      "高地"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "你站在高处，对准所有质疑者举起权杖：我就是不退。",
+    "upright": {
+      "meaning": "面对挑战，你的立场比你以为的更稳。",
+      "love": "关系经受外界或内部的考验，但你愿意守住。",
+      "career": "竞争加剧，你已经占据了有利位置。",
+      "advice": "守得住，就是胜利。"
+    },
+    "reversed": {
+      "meaning": "被迫防御到筋疲力尽，或过度固执。",
+      "love": "太在意\"谁对谁错\"，忘了两人在一队。",
+      "career": "怕失败而拒绝所有新方案。",
+      "advice": "什么值得守，什么可以松手？"
+    }
+  },
+  {
+    "id": "wands-8",
+    "number": 8,
+    "name": "权杖八",
+    "nameEn": "Eight of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "8",
+    "keywords": [
+      "迅速",
+      "消息",
+      "流动",
+      "飞矢"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "八支权杖如箭破空而至，迟来的都会在此刻齐发。",
+    "upright": {
+      "meaning": "节奏加快，信息、机会、进展接连而来。",
+      "love": "悬而未决的对话被推进，见面或表白近在咫尺。",
+      "career": "项目推进提速，需要同时处理多线。",
+      "advice": "别拖，顺势而为。"
+    },
+    "reversed": {
+      "meaning": "节奏失控，或消息堵塞、误解丛生。",
+      "love": "沟通变形，短信比心更快。",
+      "career": "多线并发导致失误。",
+      "advice": "给冲劲加一点缰绳。"
+    }
+  },
+  {
+    "id": "wands-9",
+    "number": 9,
+    "name": "权杖九",
+    "nameEn": "Nine of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "9",
+    "keywords": [
+      "韧性",
+      "防线",
+      "伤痕",
+      "最后一搏"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "伤痕未愈，但你仍握紧最后一根权杖，离胜利只差一步。",
+    "upright": {
+      "meaning": "身心疲惫，却还有一战的韧性。",
+      "love": "经历伤后再尝试，警惕但愿意。",
+      "career": "差最后一步就能收尾，别放弃。",
+      "advice": "你已经走了这么远。"
+    },
+    "reversed": {
+      "meaning": "过度戒备，或把疲惫误认为软弱。",
+      "love": "用旧伤防御新人。",
+      "career": "被过去的失败困住手脚。",
+      "advice": "老战场不该决定新战役。"
+    }
+  },
+  {
+    "id": "wands-10",
+    "number": 10,
+    "name": "权杖十",
+    "nameEn": "Ten of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "10",
+    "keywords": [
+      "负荷",
+      "肩担",
+      "超载",
+      "放下"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "你把十支权杖一把抱在怀里，背负越重，越看不见路。",
+    "upright": {
+      "meaning": "责任堆到临界点，必须学会取舍。",
+      "love": "把太多情绪独自扛着，伴侣也看不见。",
+      "career": "全都接下，反而什么都做不好。",
+      "advice": "放下一些，才走得远。"
+    },
+    "reversed": {
+      "meaning": "开始卸下重担，看见喘息的可能。",
+      "love": "愿意分担或求助。",
+      "career": "授权、推掉非必要的事。",
+      "advice": "不是所有都该由你扛。"
+    }
+  },
+  {
+    "id": "wands-page",
+    "number": 11,
+    "name": "权杖侍者",
+    "nameEn": "Page of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "page",
+    "keywords": [
+      "探险",
+      "好奇",
+      "新消息",
+      "试错"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "脚步轻快，目光灼灼，你身上仍带着孩子般的冒险欲。",
+    "upright": {
+      "meaning": "好奇心领路，适合尝试、试水、表达。",
+      "love": "活泼直接的吸引，或来自年轻对象的信息。",
+      "career": "新消息、新项目、新尝试。",
+      "advice": "去试吧，先玩起来。"
+    },
+    "reversed": {
+      "meaning": "三分钟热度，或冲动带来小麻烦。",
+      "love": "花心或过度表演。",
+      "career": "计划潦草，执行力跟不上。",
+      "advice": "兴奋之后也要能坚持。"
+    }
+  },
+  {
+    "id": "wands-knight",
+    "number": 12,
+    "name": "权杖骑士",
+    "nameEn": "Knight of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "knight",
+    "keywords": [
+      "冲锋",
+      "激情",
+      "速度",
+      "远征"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "烈马嘶鸣，火焰在你身后翻飞，你不是在奔跑，你就是奔跑本身。",
+    "upright": {
+      "meaning": "行动力爆表，敢闯敢试。",
+      "love": "热烈主动，但节奏快过对方。",
+      "career": "快速推进，领军冲锋。",
+      "advice": "记得回头看看队伍还在吗。"
+    },
+    "reversed": {
+      "meaning": "冲动带来后果，或行动失焦。",
+      "love": "来得猛走得快，难以落地。",
+      "career": "改变太频繁，半途而废。",
+      "advice": "把激情绑在一个目标上。"
+    }
+  },
+  {
+    "id": "wands-queen",
+    "number": 13,
+    "name": "权杖皇后",
+    "nameEn": "Queen of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "queen",
+    "keywords": [
+      "自信",
+      "魅力",
+      "领导",
+      "热度"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "她一进门，屋里就亮了。自信与温度都从她指尖流出。",
+    "upright": {
+      "meaning": "自信有感染力，做自己的女王。",
+      "love": "坦荡又热情，清楚地知道自己要什么。",
+      "career": "以魅力和行动力聚拢团队。",
+      "advice": "别缩小自己。"
+    },
+    "reversed": {
+      "meaning": "强势过头，或嫉妒吞噬光芒。",
+      "love": "占有欲或控制欲显现。",
+      "career": "情绪化管理，威信受损。",
+      "advice": "光可以照亮别人，不必灼伤。"
+    }
+  },
+  {
+    "id": "wands-king",
+    "number": 14,
+    "name": "权杖国王",
+    "nameEn": "King of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "rank": "king",
+    "keywords": [
+      "愿景",
+      "领袖",
+      "决断",
+      "战略"
+    ],
+    "element": "火",
+    "symbol": "🜂",
+    "summary": "王座上的人不只发号施令，他把理想化成别人能抵达的路。",
+    "upright": {
+      "meaning": "有愿景、有胆识，敢于做长期决断。",
+      "love": "坦率、忠诚、引领关系方向。",
+      "career": "战略清晰，推动团队前进。",
+      "advice": "你就是那个该拍板的人。"
+    },
+    "reversed": {
+      "meaning": "独断专行，或理想主义脱离现实。",
+      "love": "爱的方式过于主导。",
+      "career": "决策专断，忽视团队声音。",
+      "advice": "权威来自倾听。"
+    }
+  },
+  {
+    "id": "cups-ace",
+    "number": 1,
+    "name": "圣杯一",
+    "nameEn": "Ace of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "ace",
+    "keywords": [
+      "情感",
+      "初心",
+      "丰盈",
+      "源头"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "一只金杯溢出水光，心被悄悄注满，允许自己被感动。",
+    "upright": {
+      "meaning": "情感闸门打开，新的爱、感动或灵感注入。",
+      "love": "新恋情的开端，或旧关系的甜蜜回流。",
+      "career": "创作力涌现，和人合作格外顺。",
+      "advice": "让情感流出来，别关住它。"
+    },
+    "reversed": {
+      "meaning": "情感堵住了源头，感受被压抑。",
+      "love": "不敢打开自己，或单方面付出。",
+      "career": "灵感枯竭，对工作提不起热情。",
+      "advice": "先给自己倒一杯。"
+    }
+  },
+  {
+    "id": "cups-2",
+    "number": 2,
+    "name": "圣杯二",
+    "nameEn": "Two of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "2",
+    "keywords": [
+      "共鸣",
+      "结盟",
+      "对等",
+      "交心"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "两只杯子碰在一起，彼此举杯，就是一次无声的承诺。",
+    "upright": {
+      "meaning": "对等、互相理解的连结正在成形。",
+      "love": "互相吸引，愿意迈出第一步。",
+      "career": "合作伙伴气场相投，一拍即合。",
+      "advice": "把握这份默契。"
+    },
+    "reversed": {
+      "meaning": "连结失衡，一方投入、一方疏离。",
+      "love": "吵架、冷战、或价值观暴露分歧。",
+      "career": "合作理念不一致。",
+      "advice": "先让彼此把话说完。"
+    }
+  },
+  {
+    "id": "cups-3",
+    "number": 3,
+    "name": "圣杯三",
+    "nameEn": "Three of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "3",
+    "keywords": [
+      "庆祝",
+      "友谊",
+      "社群",
+      "共享喜悦"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "三只杯子高高举起，这一刻的笑声会成为未来的回忆。",
+    "upright": {
+      "meaning": "身边人互相支持，共享好消息。",
+      "love": "社交圈里有缘份或共同庆祝的理由。",
+      "career": "团队完工、欢庆、项目合作愉快。",
+      "advice": "别一个人扛喜悦。"
+    },
+    "reversed": {
+      "meaning": "热闹过后空虚，或被小团体排斥。",
+      "love": "第三者介入或社交关系添乱。",
+      "career": "团队氛围表面和谐实则内耗。",
+      "advice": "选能真正让你放松的朋友。"
+    }
+  },
+  {
+    "id": "cups-4",
+    "number": 4,
+    "name": "圣杯四",
+    "nameEn": "Four of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "4",
+    "keywords": [
+      "冷感",
+      "倦怠",
+      "漠视",
+      "重新审视"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "三只杯子摆在面前，你却只盯着第四只看不见的—它其实就悬在半空。",
+    "upright": {
+      "meaning": "感到沉闷、看不见已有的好东西。",
+      "love": "对眼前的关系产生倦怠感。",
+      "career": "机会出现了但你提不起劲。",
+      "advice": "抬头看看被你忽略的礼物。"
+    },
+    "reversed": {
+      "meaning": "走出倦怠，重新燃起兴趣。",
+      "love": "关系进入新阶段，重新看见对方。",
+      "career": "重新接受一个曾经拒绝的机会。",
+      "advice": "现在是重新打开心的时机。"
+    }
+  },
+  {
+    "id": "cups-5",
+    "number": 5,
+    "name": "圣杯五",
+    "nameEn": "Five of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "5",
+    "keywords": [
+      "失落",
+      "悲伤",
+      "哀悼",
+      "残留"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "三只杯子翻倒，你低头盯着溢出的水，却忘了身后还有两只仍满。",
+    "upright": {
+      "meaning": "失去带来的悲伤占满视野。",
+      "love": "分手、误会或一段爱的结束。",
+      "career": "项目失败或晋升落空。",
+      "advice": "允许自己难过，也别忘记身后的光。"
+    },
+    "reversed": {
+      "meaning": "逐渐走出伤口，愿意抬头。",
+      "love": "修复一段误会，或接受关系已结束。",
+      "career": "从失败里看见新的方向。",
+      "advice": "把眼泪留给它的理由，然后继续。"
+    }
+  },
+  {
+    "id": "cups-6",
+    "number": 6,
+    "name": "圣杯六",
+    "nameEn": "Six of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "6",
+    "keywords": [
+      "童年",
+      "纯真",
+      "旧识",
+      "温柔"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "记忆里那束阳光从未真的离开，今天它又回到你的杯口。",
+    "upright": {
+      "meaning": "温柔回忆涌现，或旧友重逢。",
+      "love": "初恋、青梅竹马或复合的可能。",
+      "career": "过去的经验成为今天的资本。",
+      "advice": "用童心看看眼前。"
+    },
+    "reversed": {
+      "meaning": "困在过去，逃避现实。",
+      "love": "活在旧感情里，无法向前。",
+      "career": "过度依赖过去的成功模板。",
+      "advice": "带着回忆往前走，别留下来。"
+    }
+  },
+  {
+    "id": "cups-7",
+    "number": 7,
+    "name": "圣杯七",
+    "nameEn": "Seven of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "7",
+    "keywords": [
+      "幻想",
+      "选项",
+      "迷雾",
+      "白日梦"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "七只杯子在云端飘浮，每一只都诱人，但只有一只是真的你想要。",
+    "upright": {
+      "meaning": "选项太多，容易陷入幻想。",
+      "love": "心动对象多，但没人真正落地。",
+      "career": "方向太多，精力分散。",
+      "advice": "戳破其中一朵云，看看底下是什么。"
+    },
+    "reversed": {
+      "meaning": "终于分得清幻想和现实。",
+      "love": "看清对方的本来样子。",
+      "career": "精简选项，选定方向。",
+      "advice": "减掉一半，剩下的更清晰。"
+    }
+  },
+  {
+    "id": "cups-8",
+    "number": 8,
+    "name": "圣杯八",
+    "nameEn": "Eight of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "8",
+    "keywords": [
+      "离开",
+      "转身",
+      "追寻",
+      "成全自己"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "八只杯子被整齐地留下，你背起行囊，向看不见的山走去。",
+    "upright": {
+      "meaning": "觉察到现状不够，选择离开去寻找。",
+      "love": "告别一段已无法滋养你的关系。",
+      "career": "辞掉安稳却空洞的工作。",
+      "advice": "有些成全，是给自己的。"
+    },
+    "reversed": {
+      "meaning": "想走又不敢走，反复拉扯。",
+      "love": "舍不得关系里的习惯，但也不再快乐。",
+      "career": "留恋既有资源，错过更适合的路。",
+      "advice": "迟迟未走，也是一种选择。"
+    }
+  },
+  {
+    "id": "cups-9",
+    "number": 9,
+    "name": "圣杯九",
+    "nameEn": "Nine of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "9",
+    "keywords": [
+      "满足",
+      "如愿",
+      "丰盛",
+      "许愿"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "九只杯子在你身后闪光，这是你为自己许下又实现的愿望。",
+    "upright": {
+      "meaning": "心想事成的丰盛感，值得为自己庆祝。",
+      "love": "关系进入甜蜜期，感到被看见。",
+      "career": "收获期，薪资、成就、认可到位。",
+      "advice": "把喜悦存起来，它是未来的力量。"
+    },
+    "reversed": {
+      "meaning": "物质满足却内心空虚，或只在乎外表的\"圆满\"。",
+      "love": "关系看起来很好，却没深度。",
+      "career": "高薪但热情已消失。",
+      "advice": "问问自己：这是不是我真的要的？"
+    }
+  },
+  {
+    "id": "cups-10",
+    "number": 10,
+    "name": "圣杯十",
+    "nameEn": "Ten of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "10",
+    "keywords": [
+      "和谐",
+      "家庭",
+      "圆满",
+      "长久"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "天边出现十只圣杯的彩虹，你终于抵达了想要的家。",
+    "upright": {
+      "meaning": "深层的情感满足与长久的幸福感。",
+      "love": "关系进入稳定、温暖的阶段。",
+      "career": "工作与生活达成平衡。",
+      "advice": "感谢一路上陪你走的人。"
+    },
+    "reversed": {
+      "meaning": "表面和谐，内里失衡。",
+      "love": "为了\"合家团圆\"压抑真实需求。",
+      "career": "为工作牺牲关系，反之亦然。",
+      "advice": "理想家庭的模板不必符合别人的。"
+    }
+  },
+  {
+    "id": "cups-page",
+    "number": 11,
+    "name": "圣杯侍者",
+    "nameEn": "Page of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "page",
+    "keywords": [
+      "童真",
+      "信息",
+      "灵感",
+      "意外感动"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "杯中鱼儿跃出，递来一封来自心里的信，叫你别再装作长大。",
+    "upright": {
+      "meaning": "温柔的信息抵达，可能是告白、灵感或惊喜。",
+      "love": "小小心意或一见倾心。",
+      "career": "创作或艺术项目的新提案。",
+      "advice": "允许自己被打动。"
+    },
+    "reversed": {
+      "meaning": "情绪化、任性、或虚惊一场。",
+      "love": "过度敏感或幼稚反应。",
+      "career": "脑洞不落地。",
+      "advice": "感动要化作行动，不然就散了。"
+    }
+  },
+  {
+    "id": "cups-knight",
+    "number": 12,
+    "name": "圣杯骑士",
+    "nameEn": "Knight of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "knight",
+    "keywords": [
+      "浪漫",
+      "邀请",
+      "追随心意",
+      "风度"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "他不疾不徐地走来，手上托着一杯春水，是向世界发出的邀请函。",
+    "upright": {
+      "meaning": "浪漫、理想主义地追求心之所向。",
+      "love": "主动、体贴的追求者。",
+      "career": "以情感与艺术方式推动事情。",
+      "advice": "跟上心的节奏，也别忘了地图。"
+    },
+    "reversed": {
+      "meaning": "华而不实，或被情绪主导而行动迟缓。",
+      "love": "言语漂亮但缺乏兑现。",
+      "career": "理想过高，执行不足。",
+      "advice": "下次提前把支票兑现。"
+    }
+  },
+  {
+    "id": "cups-queen",
+    "number": 13,
+    "name": "圣杯皇后",
+    "nameEn": "Queen of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "queen",
+    "keywords": [
+      "共情",
+      "直觉",
+      "温柔",
+      "海"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "她坐在海岸上，把杯子递给每一个靠近的灵魂，却从不问为什么。",
+    "upright": {
+      "meaning": "共情能力强，情绪稳定又有温度。",
+      "love": "给予无条件的理解与支持。",
+      "career": "擅长人际关系、辅导、治疗。",
+      "advice": "也要记得爱自己。"
+    },
+    "reversed": {
+      "meaning": "情绪过载，或被他人依赖耗尽。",
+      "love": "过度牺牲或情绪绑架。",
+      "career": "共情到麻木，界限模糊。",
+      "advice": "共情不是把水倒光。"
+    }
+  },
+  {
+    "id": "cups-king",
+    "number": 14,
+    "name": "圣杯国王",
+    "nameEn": "King of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "rank": "king",
+    "keywords": [
+      "情商",
+      "从容",
+      "慈悲",
+      "掌舵"
+    ],
+    "element": "水",
+    "symbol": "🜄",
+    "summary": "波涛汹涌时他仍在王座上，水在身下翻腾，他稳如一座岛。",
+    "upright": {
+      "meaning": "情绪成熟，用智慧和慈悲领导。",
+      "love": "可靠、深情、能容纳对方情绪。",
+      "career": "处理关系和危机的高手。",
+      "advice": "你可以温柔而有力。"
+    },
+    "reversed": {
+      "meaning": "情绪压抑或操纵他人感受。",
+      "love": "表面稳定内里失控。",
+      "career": "回避冲突或权谋过多。",
+      "advice": "先承认自己的情绪。"
+    }
+  },
+  {
+    "id": "swords-ace",
+    "number": 1,
+    "name": "宝剑一",
+    "nameEn": "Ace of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "ace",
+    "keywords": [
+      "洞察",
+      "突破",
+      "真相",
+      "新视角"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "一把长剑划破迷雾，你看清了一直想看清的那件事。",
+    "upright": {
+      "meaning": "思路突然明朗，真相浮出水面。",
+      "love": "把一直憋着的话说出口。",
+      "career": "关键决策的清晰时刻。",
+      "advice": "干脆利落地落笔。"
+    },
+    "reversed": {
+      "meaning": "思绪混乱、决定反复。",
+      "love": "误会被放大，或硬着头皮沟通。",
+      "career": "策略模糊，结果两难。",
+      "advice": "先把问题写下来，再谈答案。"
+    }
+  },
+  {
+    "id": "swords-2",
+    "number": 2,
+    "name": "宝剑二",
+    "nameEn": "Two of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "2",
+    "keywords": [
+      "僵局",
+      "回避",
+      "权衡",
+      "蒙眼"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "两把剑交叉在胸前，你闭上眼睛，以为不看就等于没发生。",
+    "upright": {
+      "meaning": "不愿面对的选择，陷入僵局。",
+      "love": "回避真实沟通，表面和平。",
+      "career": "两个方案各有优劣，迟迟不定。",
+      "advice": "睁开眼睛，才能看清路。"
+    },
+    "reversed": {
+      "meaning": "终于做出决定，打破僵局。",
+      "love": "把压抑说出来，关系松口气。",
+      "career": "结束拉锯，做出选择。",
+      "advice": "不完美的决定也是决定。"
+    }
+  },
+  {
+    "id": "swords-3",
+    "number": 3,
+    "name": "宝剑三",
+    "nameEn": "Three of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "3",
+    "keywords": [
+      "心碎",
+      "伤害",
+      "真相的刺",
+      "哀伤"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "雨中的红心被三把剑穿过，痛来得诚实，也诚实地可以被感受。",
+    "upright": {
+      "meaning": "心被真相刺穿，允许自己悲伤。",
+      "love": "分手、背叛或一次深度伤害。",
+      "career": "被否定、被拒绝的痛。",
+      "advice": "把泪流出来，别憋着。"
+    },
+    "reversed": {
+      "meaning": "慢慢从伤痛里复原，或释放旧怨。",
+      "love": "伤口结痂，愿意再次开放。",
+      "career": "从失败里汲取经验。",
+      "advice": "疼过，才更懂自己要什么。"
+    }
+  },
+  {
+    "id": "swords-4",
+    "number": 4,
+    "name": "宝剑四",
+    "nameEn": "Four of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "4",
+    "keywords": [
+      "休整",
+      "静养",
+      "闭关",
+      "沉思"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "剑放一旁，你静静躺下，这一刻只属于休息。",
+    "upright": {
+      "meaning": "强制休息、沉淀、充电。",
+      "love": "关系进入暂停期，彼此喘息。",
+      "career": "请假、闭关、冥想是必需品。",
+      "advice": "不做，也是一种做。"
+    },
+    "reversed": {
+      "meaning": "被迫起身，或休息不够就上战场。",
+      "love": "冷战太久失去耐心。",
+      "career": "身体拉响警报还硬撑。",
+      "advice": "真正休够再动。"
+    }
+  },
+  {
+    "id": "swords-5",
+    "number": 5,
+    "name": "宝剑五",
+    "nameEn": "Five of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "5",
+    "keywords": [
+      "惨胜",
+      "冲突",
+      "羞辱",
+      "代价"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "你拾起对手掉落的剑，嘴角的笑却带着苦味。",
+    "upright": {
+      "meaning": "赢了，但输了感情或原则。",
+      "love": "吵赢了对方却失去了温度。",
+      "career": "竞争激烈，留下伤口。",
+      "advice": "问问自己：赢这件事值不值得。"
+    },
+    "reversed": {
+      "meaning": "放下过去的胜负，修复关系。",
+      "love": "愿意低头和解。",
+      "career": "停止内耗，专注共同目标。",
+      "advice": "赢一次不如和一次。"
+    }
+  },
+  {
+    "id": "swords-6",
+    "number": 6,
+    "name": "宝剑六",
+    "nameEn": "Six of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "6",
+    "keywords": [
+      "过渡",
+      "远行",
+      "渡河",
+      "平静"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "小舟在平静河面滑行，你带着伤，也带着希望，慢慢驶向对岸。",
+    "upright": {
+      "meaning": "从困境中撤出，走向平静的新阶段。",
+      "love": "离开不合适的关系，重新出发。",
+      "career": "换环境、换城市、换岗位。",
+      "advice": "带上教训，把重负放在此岸。"
+    },
+    "reversed": {
+      "meaning": "想走却被过去绊住。",
+      "love": "身已离人未离。",
+      "career": "辞职又后悔，或迟迟不动。",
+      "advice": "先在心里告别，才能真正启航。"
+    }
+  },
+  {
+    "id": "swords-7",
+    "number": 7,
+    "name": "宝剑七",
+    "nameEn": "Seven of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "7",
+    "keywords": [
+      "策略",
+      "隐瞒",
+      "取巧",
+      "单独行动"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "他悄悄拿走了剑，露出意味深长的笑，你分不清他在偷还是在救。",
+    "upright": {
+      "meaning": "用策略或低调的方式达到目的。",
+      "love": "有秘密、或感到被隐瞒。",
+      "career": "单独行动、用巧劲。",
+      "advice": "问自己：是不是在回避正面沟通。"
+    },
+    "reversed": {
+      "meaning": "谎言被揭穿，或决定说出真相。",
+      "love": "坦白换来松口气。",
+      "career": "停止取巧，走正道。",
+      "advice": "长期胜利需要透明。"
+    }
+  },
+  {
+    "id": "swords-8",
+    "number": 8,
+    "name": "宝剑八",
+    "nameEn": "Eight of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "8",
+    "keywords": [
+      "自困",
+      "束缚",
+      "受害感",
+      "视野窄"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "八把剑围着你，但绳子其实没那么紧，只是你忘了转身看。",
+    "upright": {
+      "meaning": "被自己的想法困住，觉得没有出路。",
+      "love": "自卑、受害感让你不敢行动。",
+      "career": "把自己困在\"做不到\"里。",
+      "advice": "转个方向，世界还在。"
+    },
+    "reversed": {
+      "meaning": "终于看清是自己给自己设限。",
+      "love": "走出自怜，重新主导。",
+      "career": "接受帮助、跳出思维盲区。",
+      "advice": "先挪一小步，绳就松了。"
+    }
+  },
+  {
+    "id": "swords-9",
+    "number": 9,
+    "name": "宝剑九",
+    "nameEn": "Nine of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "9",
+    "keywords": [
+      "焦虑",
+      "失眠",
+      "自责",
+      "噩梦"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "深夜坐起，九把剑悬在床头，但大多是你自己磨出来的。",
+    "upright": {
+      "meaning": "焦虑、愧疚、失眠压顶。",
+      "love": "反复 replay 伤痛细节。",
+      "career": "担心失败，把事情放大。",
+      "advice": "黑夜最大，天亮就缩小一半。"
+    },
+    "reversed": {
+      "meaning": "从灾难化思维里慢慢走出。",
+      "love": "愿意寻求帮助或沟通。",
+      "career": "重新接地，回到事实。",
+      "advice": "写下来，比反复想更有效。"
+    }
+  },
+  {
+    "id": "swords-10",
+    "number": 10,
+    "name": "宝剑十",
+    "nameEn": "Ten of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "10",
+    "keywords": [
+      "谷底",
+      "终结",
+      "最后一刀",
+      "重启"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "十把剑扎下后，已没有更坏的可能。东方天际，光正要亮。",
+    "upright": {
+      "meaning": "一段事结束，触底反弹的时刻到了。",
+      "love": "关系彻底结束，不要挽回。",
+      "career": "项目 / 职位画下句号。",
+      "advice": "黑夜最深时，天也最近亮。"
+    },
+    "reversed": {
+      "meaning": "从谷底开始回升，带着伤继续生活。",
+      "love": "结束后第一次感到轻松。",
+      "career": "新的机会接棒。",
+      "advice": "把剑拔出来，慢慢走。"
+    }
+  },
+  {
+    "id": "swords-page",
+    "number": 11,
+    "name": "宝剑侍者",
+    "nameEn": "Page of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "page",
+    "keywords": [
+      "好奇",
+      "灵敏",
+      "质疑",
+      "学习"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "她风里站着，头发乱飞，眼里尽是新问题。",
+    "upright": {
+      "meaning": "以质疑和好奇的方式探索世界。",
+      "love": "聊得热烈但忽冷忽热。",
+      "career": "学习新技能、敢于提问。",
+      "advice": "问问题是权利，也是责任。"
+    },
+    "reversed": {
+      "meaning": "口无遮拦，或爱八卦。",
+      "love": "情绪化的指责。",
+      "career": "言辞锐利伤人。",
+      "advice": "先沉淀再发声。"
+    }
+  },
+  {
+    "id": "swords-knight",
+    "number": 12,
+    "name": "宝剑骑士",
+    "nameEn": "Knight of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "knight",
+    "keywords": [
+      "冲锋",
+      "速度",
+      "直线",
+      "辩论"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "他骑着烈马直冲目标，只看终点，不看代价。",
+    "upright": {
+      "meaning": "果断、高效、一往无前地追求目标。",
+      "love": "坦率直接，但不耐细腻。",
+      "career": "执行力强，适合快节奏战役。",
+      "advice": "别为了赢而忽视了同伴。"
+    },
+    "reversed": {
+      "meaning": "鲁莽、粗暴、急于求成。",
+      "love": "冲突频繁，容易说气话。",
+      "career": "决策过快，漏洞百出。",
+      "advice": "先勒马，再发令。"
+    }
+  },
+  {
+    "id": "swords-queen",
+    "number": 13,
+    "name": "宝剑皇后",
+    "nameEn": "Queen of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "queen",
+    "keywords": [
+      "清醒",
+      "界限",
+      "独立",
+      "犀利"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "她的笑是透明的，不含糖，每一句话都像剑锋擦出火花。",
+    "upright": {
+      "meaning": "清醒、客观，善于设立界限。",
+      "love": "独立不依附，但一旦爱就忠诚。",
+      "career": "善于分析、沟通、决断。",
+      "advice": "你可以理性，也可以柔软。"
+    },
+    "reversed": {
+      "meaning": "过于冷峻、挑剔或刻薄。",
+      "love": "伤口让你关闭情感。",
+      "career": "用理性伪装脆弱。",
+      "advice": "柔软不是弱点。"
+    }
+  },
+  {
+    "id": "swords-king",
+    "number": 14,
+    "name": "宝剑国王",
+    "nameEn": "King of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "rank": "king",
+    "keywords": [
+      "权威",
+      "逻辑",
+      "公正",
+      "智识"
+    ],
+    "element": "风",
+    "symbol": "🜁",
+    "summary": "他用思想治国，一剑下去，不偏不倚，只看真相。",
+    "upright": {
+      "meaning": "理性权威，公正判断。",
+      "love": "诚实、直接、高要求。",
+      "career": "法律、决策、战略的领导者。",
+      "advice": "聪明要配慈悲。"
+    },
+    "reversed": {
+      "meaning": "专断、高高在上、冷漠。",
+      "love": "用逻辑否定感受。",
+      "career": "权力被滥用或固执己见。",
+      "advice": "别让立场挡住真实。"
+    }
+  },
+  {
+    "id": "pentacles-ace",
+    "number": 1,
+    "name": "钱币一",
+    "nameEn": "Ace of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "ace",
+    "keywords": [
+      "机会",
+      "种子",
+      "扎根",
+      "物质基础"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "一枚金币从云端递下，它是一粒种子，也是你能落地的承诺。",
+    "upright": {
+      "meaning": "具体而稳的新机会：offer、项目、资源。",
+      "love": "务实又温暖的关系开始。",
+      "career": "加薪、签约、启动长期工作。",
+      "advice": "接住它，并认真扎根。"
+    },
+    "reversed": {
+      "meaning": "机会溜走，或打算不切实际。",
+      "love": "空有浪漫没有承诺。",
+      "career": "财务计划落空。",
+      "advice": "先看清再出手。"
+    }
+  },
+  {
+    "id": "pentacles-2",
+    "number": 2,
+    "name": "钱币二",
+    "nameEn": "Two of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "2",
+    "keywords": [
+      "平衡",
+      "多任务",
+      "灵活",
+      "资源腾挪"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "两枚钱币被抛接在手心，你在各种角色之间走钢丝，却未失笑容。",
+    "upright": {
+      "meaning": "灵活周转，能同时照顾多个方向。",
+      "love": "关系与工作、家人之间的平衡。",
+      "career": "多项目并行，需要节奏感。",
+      "advice": "保持节奏，别加太多球。"
+    },
+    "reversed": {
+      "meaning": "失去平衡，顾此失彼。",
+      "love": "没给关系留时间。",
+      "career": "过度承诺，崩掉。",
+      "advice": "砍掉最不必要的那颗球。"
+    }
+  },
+  {
+    "id": "pentacles-3",
+    "number": 3,
+    "name": "钱币三",
+    "nameEn": "Three of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "3",
+    "keywords": [
+      "协作",
+      "手艺",
+      "专业",
+      "认可"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "三个人在拱顶下合作，匠人、设计师、赞助人——彼此交出一块最好的才能。",
+    "upright": {
+      "meaning": "通过团队协作打磨出好作品。",
+      "love": "共同项目让关系升温。",
+      "career": "专业得到认可，建议沉淀作品。",
+      "advice": "你值得说\"这是我做的\"。"
+    },
+    "reversed": {
+      "meaning": "团队节奏错位，或专业被低估。",
+      "love": "沟通脱节，各自为政。",
+      "career": "缺乏反馈让作品陷入闭门造车。",
+      "advice": "主动求一次真实反馈。"
+    }
+  },
+  {
+    "id": "pentacles-4",
+    "number": 4,
+    "name": "钱币四",
+    "nameEn": "Four of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "4",
+    "keywords": [
+      "守护",
+      "囤积",
+      "安全感",
+      "收紧"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "他把四枚钱币抱得紧紧的，以为稳住它们就稳住了自己。",
+    "upright": {
+      "meaning": "保守、积累、巩固财务或情感安全。",
+      "love": "保护关系，但也可能太紧。",
+      "career": "守成期，谨慎投资。",
+      "advice": "什么该抓紧，什么该松手？"
+    },
+    "reversed": {
+      "meaning": "过度吝啬或囤积，失去流动性。",
+      "love": "控制欲或害怕分享。",
+      "career": "资金紧张、或错过扩张窗口。",
+      "advice": "放一点，才流动。"
+    }
+  },
+  {
+    "id": "pentacles-5",
+    "number": 5,
+    "name": "钱币五",
+    "nameEn": "Five of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "5",
+    "keywords": [
+      "困境",
+      "匮乏",
+      "被排斥",
+      "风雪中"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "雪夜里你和另一个人在教堂窗外走过，忘了玻璃内其实开着灯。",
+    "upright": {
+      "meaning": "感到匮乏、被排除或受困。",
+      "love": "关系里没有归属感。",
+      "career": "财务或职业困境。",
+      "advice": "抬头看看被忽略的资源。"
+    },
+    "reversed": {
+      "meaning": "走出困境，或重新接受帮助。",
+      "love": "关系重燃温度。",
+      "career": "财务好转、找到支援。",
+      "advice": "开口求助不丢脸。"
+    }
+  },
+  {
+    "id": "pentacles-6",
+    "number": 6,
+    "name": "钱币六",
+    "nameEn": "Six of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "6",
+    "keywords": [
+      "给予",
+      "慷慨",
+      "互惠",
+      "天平"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "一手金币流出，一手金币收回，给出和拿到原是一件事。",
+    "upright": {
+      "meaning": "慷慨分享，或接受他人的好意。",
+      "love": "付出与被爱的动态平衡。",
+      "career": "给与被给让事业流动起来。",
+      "advice": "允许自己接受，也是一种成熟。"
+    },
+    "reversed": {
+      "meaning": "付出不对等，或强加式的帮助。",
+      "love": "一方过度牺牲。",
+      "career": "合作利益不均。",
+      "advice": "把公平带回谈判桌。"
+    }
+  },
+  {
+    "id": "pentacles-7",
+    "number": 7,
+    "name": "钱币七",
+    "nameEn": "Seven of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "7",
+    "keywords": [
+      "等待",
+      "回望",
+      "复盘",
+      "耐心"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "他靠着锄头看自己种下的果实，不急不恼，只是看，然后笑。",
+    "upright": {
+      "meaning": "停下来复盘，评估投入与回报。",
+      "love": "检视关系是否值得继续投入。",
+      "career": "评估项目是否如期回报。",
+      "advice": "有些事情需要一个季节。"
+    },
+    "reversed": {
+      "meaning": "投入看不到回报，疑虑丛生。",
+      "love": "怀疑关系是否值得。",
+      "career": "项目 ROI 不佳，考虑止损。",
+      "advice": "没有人能永远等下去。"
+    }
+  },
+  {
+    "id": "pentacles-8",
+    "number": 8,
+    "name": "钱币八",
+    "nameEn": "Eight of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "8",
+    "keywords": [
+      "精进",
+      "专注",
+      "手艺",
+      "重复"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "他一块一块地雕琢钱币，把重复做成了艺术。",
+    "upright": {
+      "meaning": "专注打磨手艺，积累质变。",
+      "love": "愿意为关系下功夫的耐心。",
+      "career": "钻研技能，水到渠成。",
+      "advice": "重复是通往卓越的唯一路。"
+    },
+    "reversed": {
+      "meaning": "机械劳作，或对细节失去热情。",
+      "love": "关系沦为惯性。",
+      "career": "完美主义卡住进度。",
+      "advice": "找回这件事最初让你着迷的部分。"
+    }
+  },
+  {
+    "id": "pentacles-9",
+    "number": 9,
+    "name": "钱币九",
+    "nameEn": "Nine of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "9",
+    "keywords": [
+      "独立",
+      "丰盛",
+      "优雅",
+      "自给自足"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "她独自站在果园里，手臂上停着一只隼，一切都是她自己赢回来的。",
+    "upright": {
+      "meaning": "通过努力达到的独立与丰盛。",
+      "love": "不依附，也因此更懂得爱。",
+      "career": "财务自由、事业有成。",
+      "advice": "允许自己享受成果。"
+    },
+    "reversed": {
+      "meaning": "依赖他人获得表面丰盛，或过度工作。",
+      "love": "外表独立，内里孤独。",
+      "career": "靠关系而非能力，根基不稳。",
+      "advice": "检视你是否真的自给自足。"
+    }
+  },
+  {
+    "id": "pentacles-10",
+    "number": 10,
+    "name": "钱币十",
+    "nameEn": "Ten of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "10",
+    "keywords": [
+      "家业",
+      "传承",
+      "稳固",
+      "世代"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "三代同堂的庭院里，金币像阳光散落，稳到能传给下一代。",
+    "upright": {
+      "meaning": "长期积累下的稳固与传承。",
+      "love": "关系走向家庭、未来几十年。",
+      "career": "事业进入可持续阶段。",
+      "advice": "把经验整理好，留给自己和他人。"
+    },
+    "reversed": {
+      "meaning": "家庭资产纠纷，或依赖结构松动。",
+      "love": "家庭压力影响关系。",
+      "career": "老平台开始走下坡。",
+      "advice": "再稳的房子也要定期检修。"
+    }
+  },
+  {
+    "id": "pentacles-page",
+    "number": 11,
+    "name": "钱币侍者",
+    "nameEn": "Page of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "page",
+    "keywords": [
+      "学习",
+      "务实",
+      "新计划",
+      "脚踏实地"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "他捧着金币认真端详，学会把梦想切成每天能做的那一小步。",
+    "upright": {
+      "meaning": "踏实学习、建立新习惯。",
+      "love": "慢热但真心的对象。",
+      "career": "新岗位、新技能、学徒期。",
+      "advice": "从小事开始。"
+    },
+    "reversed": {
+      "meaning": "三分钟热度、不够脚踏实地。",
+      "love": "说得多做得少。",
+      "career": "计划停留在纸面。",
+      "advice": "把行动写进日历。"
+    }
+  },
+  {
+    "id": "pentacles-knight",
+    "number": 12,
+    "name": "钱币骑士",
+    "nameEn": "Knight of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "knight",
+    "keywords": [
+      "稳步",
+      "可靠",
+      "慢",
+      "持久"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "他骑着不会奔跑的马，慢但从不迷路，终点必定抵达。",
+    "upright": {
+      "meaning": "可靠、稳步推进、长期主义。",
+      "love": "老实可靠的对象。",
+      "career": "按计划稳扎稳打。",
+      "advice": "不要小看慢。"
+    },
+    "reversed": {
+      "meaning": "过于保守，或因循守旧。",
+      "love": "缺乏激情，变成习惯。",
+      "career": "墨守成规，错过机会。",
+      "advice": "稳也要敢试。"
+    }
+  },
+  {
+    "id": "pentacles-queen",
+    "number": 13,
+    "name": "钱币皇后",
+    "nameEn": "Queen of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "queen",
+    "keywords": [
+      "滋养",
+      "丰盛",
+      "务实",
+      "大地母亲"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "她把王座摆在花园里，懂得用金币照顾家人，也照顾自己。",
+    "upright": {
+      "meaning": "懂得照顾身体、家人、金钱。",
+      "love": "稳定、慷慨、贴心的伴侣。",
+      "career": "把事业和生活经营得有条不紊。",
+      "advice": "自我照顾是一种力量。"
+    },
+    "reversed": {
+      "meaning": "过度付出，或陷入\"搞定一切\"的疲惫。",
+      "love": "把爱等于操心。",
+      "career": "事事过问导致团队无力。",
+      "advice": "允许别人也有能力。"
+    }
+  },
+  {
+    "id": "pentacles-king",
+    "number": 14,
+    "name": "钱币国王",
+    "nameEn": "King of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "rank": "king",
+    "keywords": [
+      "成就",
+      "稳健",
+      "财富",
+      "厚重"
+    ],
+    "element": "土",
+    "symbol": "🜃",
+    "summary": "他坐在葡萄藤下，身后是他亲手筑起的庄园，财富是果实，也是回馈。",
+    "upright": {
+      "meaning": "成就稳固，资源丰厚，可依靠。",
+      "love": "成熟、慷慨、负责任。",
+      "career": "事业有成，适合投资或扩张。",
+      "advice": "财富是工具，不是目的。"
+    },
+    "reversed": {
+      "meaning": "贪婪、固执、物质主义。",
+      "love": "用金钱衡量感情。",
+      "career": "停滞在老模式，不愿创新。",
+      "advice": "财富有限，意义无限。"
+    }
+  }
+]
