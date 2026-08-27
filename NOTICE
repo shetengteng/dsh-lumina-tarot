@@ -1,0 +1,12 @@
+Lumina Tarot plugin source code is MIT. Card-face images follow their upstream licenses:
+
+Rider–Waite–Smith (`src/client/decks/rws/`)
+  Original artwork by Pamela Colman Smith / Arthur Edward Waite (1909).
+  Public Domain.
+
+Aquatic Tarot (`src/client/decks/aquatic/`)
+  Artwork by Andreas Schröter, https://www.aquatictarot.de/
+  Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0
+  (CC BY-NC-SA 3.0): https://creativecommons.org/licenses/by-nc-sa/3.0/
+  Personal non-commercial use only. For commercial use, switch to Minimal or
+  Classic Waite, or contact the original author.

@@ -86,4 +86,4 @@ Product behavior is in `design/2026-08-19-01-系统设计.md`. This is not a sta
 
 ## License
 
-Source is MIT. See `LICENSE`.
+Source is MIT. See `LICENSE`. Card art licenses are in `NOTICE`: Rider–Waite–Smith is Public Domain; Aquatic Tarot is CC BY-NC-SA 3.0 (personal non-commercial use only).

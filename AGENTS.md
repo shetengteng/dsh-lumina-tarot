@@ -13,3 +13,4 @@ Before changing plugin code, read https://dsh.pub/develop-plugin.md completely. 
 - `.cursor/rules/module-size.mdc` — 单文件原则上 ≤300 行，超限必须按职责拆模块
 - `design/2026-08-19-01-系统设计.md` — 产品行为（单击抽牌、右击扇形菜单、洗牌 loading）
 - `design/2026-08-19-02-实施计划.md` — 阶段验收；未勾完前一阶段不要进入下一阶段
+- `design/2026-08-27-01-端到端测试场景.md` — 真实 `dsh web` 端到端场景

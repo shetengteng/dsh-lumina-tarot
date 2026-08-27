@@ -86,4 +86,4 @@ pnpm build    # 同时打出 Host ESM 和 Client 包
 
 ## License
 
-源码 MIT，见 `LICENSE`。
+源码 MIT，见 `LICENSE`。牌面图源见 `NOTICE`：韦特为 Public Domain；水彩 Aquatic Tarot 为 CC BY-NC-SA 3.0，仅限个人非商业用途。

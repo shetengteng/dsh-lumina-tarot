@@ -114,6 +114,9 @@ export function createSettingsSection(
               )
             })}
           </div>
+          {config.cardArtTheme === 'aquatic'
+            ? <p className="lumina-set-desc">{tx('artAquaticWarning')}</p>
+            : null}
         </div>
         {config.cardArtTheme === 'minimal'
           ? (
