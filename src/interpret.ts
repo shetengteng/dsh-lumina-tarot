@@ -1,22 +1,10 @@
+import { buildInterpretPrompt } from './domain/interpret-prompt.ts'
 import type { ReadingPayload } from './domain/types.ts'
+
+export { buildInterpretPrompt }
 
 export type FollowupAgent = {
   followup: (message: unknown) => void
-}
-
-function cardLine(card: ReadingPayload['cards'][number]): string {
-  const mark = card.reversed ? '（逆）' : ''
-  return `- ${card.positionName} · ${card.name}${mark}：${card.meaning}`
-}
-
-export function buildInterpretPrompt(reading: ReadingPayload): string {
-  const lines = [
-    '请根据下面已经抽好的牌面撰写解读。遵守 lumina-interpret skill。禁止改牌、重抽、再调用抽牌工具。',
-    '结构：总览 → 按牌位 → 综合 → 可执行建议。语气克制、不宿命论；不提供医疗或法律建议。',
-  ]
-  if (reading.question) lines.push(`问题：${reading.question}`)
-  lines.push(`${reading.spreadName}：`, ...reading.cards.map(cardLine))
-  return lines.join('\n')
 }
 
 async function buildFollowupMessage(text: string, source: unknown): Promise<unknown> {

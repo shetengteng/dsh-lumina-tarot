@@ -14,10 +14,21 @@ export function mirroredSession(): string | undefined {
   return mirroredSessionId
 }
 
+type PromptResult = {
+  ok?: boolean
+  error?: { message?: string; code?: string }
+}
+
 export type SessionsHandle = {
   open: (id: string) => void
   create?: (opts?: { workspaceId?: string; cwd?: string }) => Promise<string>
-  list?: { getSnapshot?: () => { current?: string } }
+  list?: {
+    getSnapshot?: () => {
+      current?: string
+      byId?: Record<string, { blank?: boolean }>
+    }
+  }
+  binding?: (id: string) => { session?: { prompt?: (content: Array<{ type: 'text'; text: string }>, mode: 'queue' | 'steer') => Promise<PromptResult> } } | undefined
 }
 
 export type WorkspacesHandle = {
@@ -100,6 +111,12 @@ export function readRecentWorkspaceId(props: {
 
 const SETTLE_MS = 280
 
+function settle(): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, SETTLE_MS))
+}
+
+export { settle }
+
 async function openNewSession(
   recentWorkspaceId: string | undefined,
   actions: SessionActions,
@@ -113,7 +130,7 @@ async function openNewSession(
   if (!id) throw new Error('need-session')
   actions.openSession(id)
   mirrorSession(id)
-  await new Promise((resolve) => setTimeout(resolve, SETTLE_MS))
+  await settle()
   return id
 }
 
@@ -139,4 +156,22 @@ export async function ensureSession(
     })
   }
   return pendingEnsure
+}
+
+export async function promptSession(
+  sessions: SessionsHandle | undefined,
+  id: string,
+  text: string,
+): Promise<void> {
+  let prompt = sessions?.binding?.(id)?.session?.prompt
+  if (typeof prompt !== 'function') {
+    await settle()
+    prompt = sessions?.binding?.(id)?.session?.prompt
+  }
+  const session = sessions?.binding?.(id)?.session
+  if (typeof prompt !== 'function' || !session) throw new Error('need-session')
+  const result = await prompt.call(session, [{ type: 'text', text }], 'queue')
+  if (result && result.ok === false) {
+    throw new Error(result.error?.message || result.error?.code || '未能把解读发到会话')
+  }
 }

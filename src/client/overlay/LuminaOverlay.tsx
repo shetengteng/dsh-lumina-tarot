@@ -17,6 +17,7 @@ import {
 import { listenToolReading } from './live-reading.ts'
 import type { ReadingPayload, SpreadId } from '../../domain/types.ts'
 import { LUMINA_HISTORY_CLEARED, parseReading, unwrapCommandResult } from './commands.ts'
+import { runInterpret } from './interpret-send.ts'
 import { useOverlayDismiss } from './dismiss.ts'
 import { useHistoryLayer } from './history-layer.ts'
 import { OverlayView } from './OverlayView.tsx'
@@ -108,17 +109,17 @@ export function createLuminaOverlay(
     const recentRef = useRef(recentWorkspaceId)
     sessionIdRef.current = sessionId
     recentRef.current = recentWorkspaceId
+    const sessionActions = {
+      connectWorkspace: props.connectWorkspace ?? fallbackActions.connectWorkspace,
+      openSession: props.openSession ?? fallbackActions.openSession,
+      createSession: props.createSession ?? fallbackActions.createSession,
+      listedCurrent: props.listedCurrent ?? fallbackActions.listedCurrent,
+    }
 
     const executeLine = useCallback(async (line: string) => {
       const execute = ctx.remote?.commands?.execute
       if (typeof execute !== 'function') throw new Error('当前环境没有命令通道')
-      const actions = {
-        connectWorkspace: props.connectWorkspace ?? fallbackActions.connectWorkspace,
-        openSession: props.openSession ?? fallbackActions.openSession,
-        createSession: props.createSession ?? fallbackActions.createSession,
-        listedCurrent: props.listedCurrent ?? fallbackActions.listedCurrent,
-      }
-      const id = await ensureSession(sessionIdRef.current, recentRef.current, actions)
+      const id = await ensureSession(sessionIdRef.current, recentRef.current, sessionActions)
       const result = unwrapCommandResult(await execute(id, line, []))
       if (result.kind === 'error') throw new Error(result.text || '命令失败')
       return result
@@ -173,7 +174,14 @@ export function createLuminaOverlay(
       setInterpreting(true)
       setInterpretNote('')
       try {
-        await executeLine('/lumina interpret')
+        await runInterpret({
+          reading,
+          current: sessionIdRef.current,
+          recentWorkspaceId: recentRef.current,
+          actions: sessionActions,
+          sessions: ctx.sessions,
+          executeInterpret: () => executeLine('/lumina interpret'),
+        })
         setPhase('idle')
       } catch (error) {
         setInterpretNote(failText(error, tx('interpretNeedSession')))
