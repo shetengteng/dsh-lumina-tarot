@@ -158,7 +158,7 @@ export function ResultPanel(props: {
             type="button"
             className="dsh-lumina-cta"
             aria-label={tx('interpret')}
-            title={canInterpret ? tx('interpret') : tx('interpretNeedSession')}
+            title={tx('interpret')}
             disabled={!canInterpret}
             onClick={() => startInterpret()}
           >

@@ -11,5 +11,5 @@ Before changing plugin code, read https://dsh.pub/develop-plugin.md completely. 
 - `.cursor/rules/dsh-plugin.mdc` — 双面包、座椅、数据所有权、构建与验收
 - `.cursor/rules/frontend-role.mdc` — Client UI 的前端角色与视觉/交互契约
 - `.cursor/rules/module-size.mdc` — 单文件原则上 ≤300 行，超限必须按职责拆模块
-- `design/2026-08-19-01-系统设计.md` — 产品行为（单击抽牌、右击牌组、洗牌 loading）
+- `design/2026-08-19-01-系统设计.md` — 产品行为（单击抽牌、右击扇形菜单、洗牌 loading）
 - `design/2026-08-19-02-实施计划.md` — 阶段验收；未勾完前一阶段不要进入下一阶段

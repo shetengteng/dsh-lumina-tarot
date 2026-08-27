@@ -7,7 +7,7 @@ import {
 } from './domain/draw.ts'
 import { persistReading } from './history.ts'
 import { SPREADS, requireSpreadId } from './domain/spreads.ts'
-import { parseToolReading, summarizeReading, toToolReading } from './domain/tool-reading.ts'
+import { omitUndefined, parseToolReading, summarizeReading, toToolReading } from './domain/tool-reading.ts'
 import type { SpreadId } from './domain/types.ts'
 
 type Json = Record<string, unknown>
@@ -132,7 +132,7 @@ export function registerLuminaTools(ctx: ToolCtx, state: LuminaState): void {
       if (typeof query !== 'string' || !query.trim()) throw new Error('query is required')
       const card = findCard(query)
       if (!card) throw new Error(`unknown card: ${query.trim()}`)
-      return {
+      return omitUndefined({
         id: card.id,
         number: card.number,
         name: card.name,
@@ -145,7 +145,7 @@ export function registerLuminaTools(ctx: ToolCtx, state: LuminaState): void {
         summary: card.summary,
         upright: card.upright,
         reversed: card.reversed,
-      }
+      })
     },
   })
 

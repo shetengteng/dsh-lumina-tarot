@@ -24,7 +24,7 @@ Client 跑在 DSH Web 壳里：函数组件 + hooks，展示层写 JSX（`.tsx`�
 
 - **拖**：位移过阈值只改 `floatX`/`floatY`，松手落盘，不抽牌。
 - **单击**：按当前默认牌阵抽牌，进入洗牌 loading。
-- **右击**：阻止浏览器菜单，打开牌组选择。
+- **右击**：阻止浏览器菜单，打开贴牌的扇形快捷菜单（牌阵 / 上次结果 / 查看历史）。
 - 拖、点、右键必须互斥，触控与鼠标同一套 pointer 逻辑。
 - 明确展示 idle / loading / result / error。失败可重试，文案说人话。
 - 可键盘到达的控件要有可见 focus；装饰 SVG `pointer-events: none`。

@@ -4,8 +4,22 @@ export type { ToolCardView, ToolReadingView }
 
 const SPREADS: SpreadId[] = ['single', 'three-card', 'cross', 'celtic-lite']
 
+/** DSH snapshots tool output as lossless JSON and rejects own keys whose value is `undefined`. */
+export function omitUndefined<T>(value: T): T {
+  if (Array.isArray(value)) return value.map(omitUndefined) as T
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {}
+    for (const [key, item] of Object.entries(value)) {
+      if (item === undefined) continue
+      out[key] = omitUndefined(item)
+    }
+    return out as T
+  }
+  return value
+}
+
 export function toToolReading(reading: ReadingPayload): ToolReadingView {
-  return {
+  return omitUndefined({
     id: reading.id,
     createdAt: reading.createdAt,
     spreadId: reading.spreadId,
@@ -28,7 +42,7 @@ export function toToolReading(reading: ReadingPayload): ToolReadingView {
       keywords: card.keywords,
       meaning: card.meaning,
     })),
-  }
+  })
 }
 
 export function summarizeReading(value: ToolReadingView): string {

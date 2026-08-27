@@ -12,7 +12,7 @@ After install, start `dsh web`:
 
 - **Click** the floating card back to draw with the current default spread. You’ll see a shuffle animation, then the cards flip.
 - **Drag** to move it. The position is saved on release; a drag does not count as a draw.
-- **Right-click** opens a quick menu (spread, deck art, today’s card, last result, reset position). The browser context menu is suppressed.
+- **Right-click** opens a fan menu on the card (four spreads, last result, history). The browser context menu is suppressed. Deck art, today’s card, and reset position live in settings or slash / chat tools.
 - After the result, **Ask AI to interpret** sends a follow-up in the current session based on the **already drawn** cards. The model cannot change them.
 - Hate the floater? Turn off “show floating card” in settings. Slash commands and chat tools still work.
 
@@ -83,12 +83,6 @@ pnpm build    # Host ESM + Client bundle
 `prepare` is the same build. After Client changes, a package already linked into the profile usually needs a `dsh web` restart, then a browser refresh.
 
 Product behavior is in `design/2026-08-19-01-系统设计.md`. This is not a standalone site and has no `/tarot` route — it lives inside the Harness chat shell.
-
-## vs the offline PWA
-
-The standalone app is [`tt-lumina-tarot`](https://github.com/shetengteng/tt-lumina-tarot). This plugin wires readings into the conversation. It does **not** port the 3-second long-press, particle background, or Three.js. Shuffle is a CSS animation that starts on click and acts as loading; the actual draw happens on the Host.
-
-v0.1 defaults to minimal symbol art. Aquatic watercolor art is non-commercial licensed and is **not** bundled in this npm package.
 
 ## License
 

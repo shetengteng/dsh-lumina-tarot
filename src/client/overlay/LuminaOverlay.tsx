@@ -24,7 +24,6 @@ import {
   bindSessionActions,
   commandWithQuestion,
   ensureSession,
-  mirroredSession,
   mirrorSession,
   readRecentWorkspaceId,
   readSessionId,
@@ -173,9 +172,9 @@ export function createLuminaOverlay(
       interpretingRef.current = true
       setInterpreting(true)
       setInterpretNote('')
-      setPhase('idle')
       try {
         await executeLine('/lumina interpret')
+        setPhase('idle')
       } catch (error) {
         setInterpretNote(failText(error, tx('interpretNeedSession')))
         setPhase('result')
@@ -184,7 +183,7 @@ export function createLuminaOverlay(
         interpretingRef.current = false
         setInterpreting(false)
       }
-    }, [executeLine, reading])
+    }, [executeLine, reading, tx])
 
     const openLast = useCallback(async () => {
       if (drawingRef.current) return
@@ -281,7 +280,7 @@ export function createLuminaOverlay(
         errorText={errorText}
         reading={reading}
         panelBusy={busy || interpreting}
-        canInterpret={Boolean((sessionId || mirroredSession()) && reading && !busy && !interpreting)}
+        canInterpret={Boolean(reading && !busy && !interpreting)}
         interpretNote={interpretNote}
         startDraw={startDraw}
         startInterpret={() => void startInterpret()}
