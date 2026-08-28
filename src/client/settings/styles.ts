@@ -1,3 +1,5 @@
+import { GUIDE_CSS } from '../css/settings-guide.ts'
+
 const SETTINGS_STYLE_ID = 'dsh-lumina-tarot-settings-css'
 const SETTINGS_FONT_ID = 'dsh-lumina-tarot-font'
 
@@ -274,5 +276,6 @@ export function ensureSettingsStyles(): void {
   background: hsl(var(--lumina-card, 229 35% 12%));
   color: hsl(var(--lumina-ink, 38 47% 58%));
 }
+${GUIDE_CSS}
 `
 }

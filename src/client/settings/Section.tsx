@@ -14,6 +14,7 @@ import { resolveUiLocale, spreadLabel, t, type LocaleHandle } from '../i18n.ts'
 import { luminaConfig, persistLuminaField, persistLuminaPatch, unsetLuminaField, patchLuminaConfig, watchLuminaConfig, type SettingsHandle } from '../store.ts'
 import { ArtPreview } from './art-previews.tsx'
 import { DataBlock } from './data.tsx'
+import { GuideBlock } from './guide.tsx'
 import { BrandLogo } from './logo.tsx'
 import { SelectRow, SliderRow, SwitchRow } from './rows.tsx'
 import { ensureSettingsStyles } from './styles.ts'
@@ -232,6 +233,7 @@ export function createSettingsSection(
           note={dataNote}
           setNote={setDataNote}
         />
+        <GuideBlock locale={locale} />
         <div className="lumina-set-about">
           <div className="lumina-set-title">{tx('about')}</div>
           <p className="lumina-set-desc">{tx('aboutLine1')}</p>

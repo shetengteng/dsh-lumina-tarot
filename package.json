@@ -24,6 +24,7 @@
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
+    "pack:output": "node scripts/pack.mjs",
     "prepare": "node scripts/build.mjs",
     "export-domain": "node scripts/export-domain.mjs",
     "verify:p6": "node scripts/verify-p6.mjs",

@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumina 塔罗 · DeepSeek Harness 插件</title>
+  <meta name="description" content="DeepSeek Harness Web 上的塔罗占卜插件。点悬浮牌背抽牌，当前会话里的模型负责解读，改不了牌面。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("lumina-docs-theme");
+        var dark = t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches);
+        if (dark) document.documentElement.classList.add("dark");
+        var lang = localStorage.getItem("lumina-docs-lang") || "zh";
+        document.documentElement.dataset.lang = lang;
+        document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+      } catch (e) {}
+    })();
+  </script>
+  <style>
+    :root {
+      --background: 60 9% 97.5%;
+      --foreground: 24 10% 10%;
+      --muted: 60 6% 94%;
+      --muted-foreground: 25 6% 38%;
+      --card: 60 20% 99%;
+      --border: 24 8% 86%;
+      --primary: 24 10% 12%;
+      --primary-foreground: 60 9% 97%;
+      --accent: 32 62% 34%;
+      --ring: 24 10% 12%;
+      --radius: 0.5rem;
+      --shadow: 0 1px 2px hsl(24 10% 10% / 0.06);
+      --max: 72rem;
+      --header: 3.75rem;
+      --z-skip: 50;
+      --z-nav: 40;
+    }
+    .dark {
+      --background: 24 12% 6%;
+      --foreground: 40 20% 94%;
+      --muted: 24 10% 11%;
+      --muted-foreground: 30 8% 62%;
+      --card: 24 12% 8%;
+      --border: 24 8% 18%;
+      --primary: 40 20% 94%;
+      --primary-foreground: 24 12% 8%;
+      --accent: 38 48% 62%;
+      --ring: 40 20% 90%;
+      --shadow: 0 1px 2px hsl(0 0% 0% / 0.35);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: hsl(var(--foreground));
+      background: hsl(var(--background));
+      -webkit-font-smoothing: antialiased;
+    }
+    [data-lang="zh"] .en, [data-lang="en"] .zh { display: none !important; }
+    a { color: inherit; }
+    :focus-visible {
+      outline: 2px solid hsl(var(--ring));
+      outline-offset: 2px;
+    }
+    .skip {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      z-index: var(--z-skip);
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius);
+      background: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+    .skip:focus { top: 0.75rem; }
+    .wrap {
+      width: min(100% - 2rem, var(--max));
+      margin-inline: auto;
+    }
+    @media (min-width: 768px) {
+      .wrap { width: min(100% - 3rem, var(--max)); }
+    }
+    @media (min-width: 1024px) {
+      .wrap { width: min(100% - 4rem, var(--max)); }
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: var(--z-nav);
+      height: var(--header);
+      border-bottom: 1px solid hsl(var(--border));
+      background: hsl(var(--background));
+    }
+    .nav {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .brand-mark {
+      width: 1.125rem;
+      height: 1.9rem;
+      color: hsl(var(--accent));
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .nav-links a, .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      min-height: 2.75rem;
+      min-width: 2.75rem;
+      padding: 0 0.7rem;
+      border-radius: calc(var(--radius) - 2px);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: hsl(var(--muted-foreground));
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      transition: color 180ms ease, background-color 180ms ease;
+    }
+    .nav-links a:hover, .icon-btn:hover {
+      color: hsl(var(--foreground));
+      background: hsl(var(--muted));
+    }
+    .nav-links a svg, .icon-btn svg { width: 1.05rem; height: 1.05rem; }
+    .sun { display: none; }
+    .dark .moon { display: none; }
+    .dark .sun { display: block; }
+    .hero {
+      display: grid;
+      gap: 3rem;
+      padding: 3.5rem 0 4.5rem;
+    }
+    @media (min-width: 960px) {
+      .hero {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        align-items: center;
+        padding: 5rem 0 5.5rem;
+        gap: 3.5rem;
+      }
+    }
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-height: 1.75rem;
+      padding: 0 0.625rem 0 0.4rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: hsl(var(--muted-foreground));
+      background: hsl(var(--card));
+    }
+    .kicker svg { width: 0.9rem; height: 0.9rem; color: hsl(var(--accent)); }
+    h1 {
+      margin: 1rem 0 0;
+      font-size: clamp(2rem, 4.6vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.038em;
+      line-height: 1.12;
+    }
+    .lede {
+      margin: 1.1rem 0 0;
+      max-width: 38rem;
+      color: hsl(var(--muted-foreground));
+      font-size: 1.0625rem;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 2.75rem;
+      padding: 0 1.1rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, opacity 180ms ease;
+    }
+    .btn svg { width: 1rem; height: 1rem; }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-solid {
+      background: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+    }
+    .btn-solid:hover { opacity: 0.92; }
+    .btn-ghost {
+      background: hsl(var(--card));
+      color: hsl(var(--foreground));
+      border-color: hsl(var(--border));
+    }
+    .btn-ghost:hover { background: hsl(var(--muted)); }
+    .stage {
+      position: relative;
+      isolation: isolate;
+      min-height: 24rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) + 4px);
+      background: hsl(var(--card));
+      box-shadow: var(--shadow);
+      overflow: visible;
+    }
+      .stage-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      height: 2.5rem;
+      padding: 0 0.9rem;
+      border-bottom: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) + 4px) calc(var(--radius) + 4px) 0 0;
+      color: hsl(var(--muted-foreground));
+      font-size: 0.75rem;
+      overflow: hidden;
+    }
+    .dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 999px;
+      background: hsl(var(--border));
+    }
+    .stage-body { padding: 1.15rem 1.15rem 1.25rem; }
+    .bubble {
+      max-width: 22rem;
+      padding: 0.7rem 0.85rem;
+      border-radius: var(--radius);
+      background: hsl(var(--muted));
+      font-size: 0.875rem;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      font-size: 0.75rem;
+      color: hsl(var(--muted-foreground));
+    }
+    .chip svg { width: 0.8rem; height: 0.8rem; color: hsl(var(--accent)); }
+    .spread-mini {
+      display: flex;
+      gap: 0.55rem;
+      margin-top: 0.95rem;
+      align-items: flex-end;
+    }
+    .mini-card {
+      position: relative;
+      flex: 1;
+      max-width: 6.6rem;
+      aspect-ratio: 5 / 8.6;
+      border: 1px solid hsl(var(--border));
+      border-radius: 0.4rem;
+      padding: 0.32rem;
+      display: flex;
+      flex-direction: column;
+      background: hsl(var(--background));
+    }
+    .corner {
+      position: absolute;
+      top: 0.34rem;
+      left: 0.38rem;
+      z-index: 1;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: hsl(var(--accent));
+    }
+    .mini-art {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: hsl(var(--accent));
+      border-radius: 0.22rem;
+      border: 1px solid hsl(var(--border));
+      background: hsl(var(--muted) / 0.55);
+    }
+    .mini-art svg { width: 82%; height: 82%; }
+    .mini-art.is-rev { transform: rotate(180deg); }
+    .mini-meta {
+      padding: 0.28rem 0.08rem 0.08rem;
+      font-size: 0.62rem;
+      line-height: 1.25;
+      color: hsl(var(--muted-foreground));
+    }
+    .mini-meta strong {
+      display: block;
+      color: hsl(var(--foreground));
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+    .ask {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.9rem;
+      min-height: 2.1rem;
+      padding: 0 0.65rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      font-size: 0.75rem;
+      background: hsl(var(--muted));
+    }
+    .ask svg { width: 0.9rem; height: 0.9rem; color: hsl(var(--accent)); }
+    .float-wrap {
+      position: absolute;
+      right: 1.05rem;
+      bottom: 1rem;
+      z-index: 20;
+      width: 3.75rem;
+      aspect-ratio: 5 / 8.6;
+      --r: 6.35rem;
+    }
+    @media (max-width: 720px) {
+      .float-wrap { --r: 5.15rem; right: 0.7rem; bottom: 0.75rem; }
+    }
+    .float-card {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      color: hsl(var(--accent));
+      background: hsl(var(--card));
+      border: 1px solid hsl(var(--border));
+      border-radius: 0.35rem;
+      box-shadow: 0 8px 20px hsl(24 10% 10% / 0.14);
+      cursor: pointer;
+      animation: breathe 3.6s ease-in-out infinite;
+    }
+    .float-card svg { display: block; width: 100%; height: 100%; pointer-events: none; }
+    .float-wrap.is-open .float-card { animation: none; }
+    .demo-spreads {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 3;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+    .demo-spread {
+      pointer-events: auto;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 4;
+      width: 2.4rem;
+      height: calc(2.4rem * 8.6 / 5);
+      margin-left: -1.2rem;
+      margin-top: calc(-1.2rem * 8.6 / 5);
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+      transform: rotate(var(--a, 0deg)) translateY(calc(-1 * var(--r)));
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+    }
+    .float-wrap.is-open .demo-spread {
+      animation: demo-fan-out 240ms ease-out both;
+      animation-delay: calc(var(--i, 0) * 40ms);
+    }
+    .demo-spread-face {
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 4px 3px;
+      border: 1px solid hsl(var(--border));
+      border-radius: 0.28rem;
+      background: hsl(var(--card));
+      color: hsl(var(--foreground));
+      font-size: 10px;
+      line-height: 1.2;
+      text-align: center;
+      word-break: break-word;
+      box-shadow: 0 6px 12px hsl(24 10% 10% / 0.16);
+      transform: translateY(0) scale(1);
+      transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 180ms ease, background-color 180ms ease, color 180ms ease;
+    }
+    .demo-spread[data-on="1"] .demo-spread-face {
+      background: hsl(var(--accent));
+      color: hsl(var(--card));
+      border-color: hsl(var(--accent));
+    }
+    .demo-spread:hover .demo-spread-face {
+      transform: translateY(-10px) scale(1.06);
+      box-shadow: 0 14px 28px hsl(24 10% 10% / 0.22);
+    }
+    .demo-spread:focus-visible { outline: none; }
+    .demo-spread:focus-visible .demo-spread-face {
+      outline: 2px solid hsl(var(--ring));
+      outline-offset: 2px;
+    }
+    .demo-spread.is-action {
+      width: max-content;
+      height: auto;
+      overflow: visible;
+      margin: 0;
+      transform: translate(-50%, -50%) rotate(var(--a, 0deg)) translateY(calc(-1 * var(--r))) rotate(calc(-1 * var(--a, 0deg)));
+    }
+    .float-wrap.is-open .demo-spread.is-action { animation-name: demo-action-fan; }
+    .demo-spread.is-action .demo-spread-face {
+      display: inline-flex;
+      width: auto;
+      height: auto;
+      min-height: 1.5rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: hsl(var(--accent));
+      color: hsl(var(--card));
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      word-break: keep-all;
+      transform: none;
+    }
+    .demo-spread.is-action:hover .demo-spread-face {
+      transform: scale(1.04);
+      filter: brightness(1.06);
+    }
+    @keyframes demo-fan-out {
+      from { opacity: 0; transform: rotate(var(--a, 0deg)) translateY(-24px); }
+      to { opacity: 1; transform: rotate(var(--a, 0deg)) translateY(calc(-1 * var(--r))); }
+    }
+    @keyframes demo-action-fan {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--a, 0deg)) translateY(-24px) rotate(calc(-1 * var(--a, 0deg)));
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(var(--a, 0deg)) translateY(calc(-1 * var(--r))) rotate(calc(-1 * var(--a, 0deg)));
+      }
+    }
+    .float-wrap:not(.is-open) .demo-spreads { display: none; }
+    @keyframes breathe {
+      0%, 100% { box-shadow: 0 8px 20px hsl(24 10% 10% / 0.14); }
+      50% { box-shadow: 0 12px 28px hsl(24 10% 10% / 0.28); }
+    }
+    section { padding: 0 0 4.5rem; }
+    .section-label {
+      margin: 0 0 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: hsl(var(--muted-foreground));
+    }
+    .steps { border-top: 1px solid hsl(var(--border)); }
+    .step {
+      display: grid;
+      gap: 0.7rem 1.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid hsl(var(--border));
+    }
+    @media (min-width: 720px) {
+      .step { grid-template-columns: 8.75rem minmax(0, 1fr); align-items: start; }
+    }
+    .step-mark {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .step-ico {
+      width: 2.35rem;
+      height: 2.35rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      color: hsl(var(--accent));
+      background: hsl(var(--card));
+      flex-shrink: 0;
+    }
+    .step-ico svg { width: 1.1rem; height: 1.1rem; }
+    .step-num {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: hsl(var(--accent));
+    }
+    .step h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .step p {
+      margin: 0.35rem 0 0;
+      color: hsl(var(--muted-foreground));
+      max-width: 42rem;
+    }
+    .truth {
+      display: grid;
+      gap: 2rem;
+      padding: 1.75rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) + 4px);
+      background: hsl(var(--card));
+    }
+    @media (min-width: 800px) {
+      .truth { grid-template-columns: 1fr 1.05fr; align-items: start; }
+    }
+    .truth-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: hsl(var(--accent));
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.55rem;
+    }
+    .truth-kicker svg { width: 1rem; height: 1rem; }
+    .truth h2 {
+      margin: 0 0 0.65rem;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+    }
+    .truth p { margin: 0; color: hsl(var(--muted-foreground)); max-width: 36rem; }
+    .tools { margin: 0; padding: 0; list-style: none; }
+    .tools li {
+      display: grid;
+      grid-template-columns: 1.5rem minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.72rem 0;
+      border-bottom: 1px solid hsl(var(--border));
+      font-size: 0.9rem;
+    }
+    .tools li:last-child { border-bottom: 0; }
+    .tools .ticon { width: 1rem; height: 1rem; color: hsl(var(--accent)); }
+    .tools code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      color: hsl(var(--foreground));
+    }
+    .tools span { color: hsl(var(--muted-foreground)); text-align: right; font-size: 0.82rem; }
+    .spread-grid {
+      display: grid;
+      gap: 0.75rem;
+    }
+    @media (min-width: 640px) { .spread-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1100px) { .spread-grid { grid-template-columns: repeat(4, 1fr); } }
+    .spread-item {
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) + 2px);
+      background: hsl(var(--card));
+      padding: 0.95rem 1rem 1.1rem;
+    }
+    .spread-item h3 {
+      margin: 0.7rem 0 0.25rem;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+    }
+    .spread-item p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: hsl(var(--muted-foreground));
+    }
+    .spread-count {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: hsl(var(--accent));
+    }
+    .lay {
+      height: 7.6rem;
+      display: grid;
+      place-items: center;
+      background: hsl(var(--muted) / 0.65);
+      border-radius: var(--radius);
+    }
+    .pip {
+      width: 1.35rem;
+      height: 2.32rem;
+      border: 1px solid hsl(var(--accent) / 0.55);
+      background: hsl(var(--card));
+      border-radius: 0.18rem;
+      color: hsl(var(--accent));
+      overflow: hidden;
+    }
+    .pip svg { display: block; width: 100%; height: 100%; }
+    .lay-single .pip { width: 1.9rem; height: 3.25rem; }
+    .lay-three { display: flex; gap: 0.38rem; align-items: center; justify-content: center; height: 7.6rem; }
+    .lay-cross, .lay-celtic {
+      display: grid;
+      justify-content: center;
+      align-content: center;
+      gap: 0.26rem;
+      height: 7.6rem;
+    }
+    .lay-cross { grid-template-columns: repeat(3, auto); }
+    .lay-cross .pip:nth-child(1) { grid-column: 2; }
+    .lay-cross .pip:nth-child(2) { grid-column: 1; grid-row: 2; }
+    .lay-cross .pip:nth-child(3) { grid-column: 2; grid-row: 2; }
+    .lay-cross .pip:nth-child(4) { grid-column: 3; grid-row: 2; }
+    .lay-cross .pip:nth-child(5) { grid-column: 2; grid-row: 3; }
+    .lay-celtic { grid-template-columns: repeat(3, auto); }
+    .lay-celtic .pip:nth-child(1) { grid-column: 2; }
+    .lay-celtic .pip:nth-child(2) { grid-column: 1; grid-row: 2; }
+    .lay-celtic .pip:nth-child(3) { grid-column: 2; grid-row: 2; }
+    .lay-celtic .pip:nth-child(4) { grid-column: 3; grid-row: 2; }
+    .lay-celtic .pip:nth-child(5) { grid-column: 2; grid-row: 3; }
+    .lay-celtic .pip:nth-child(6) { grid-column: 2; grid-row: 4; }
+    .backs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem 1.1rem;
+    }
+    .back-item {
+      width: 4.35rem;
+      text-align: center;
+    }
+    .back-face {
+      width: 4.35rem;
+      aspect-ratio: 5 / 8.6;
+      color: hsl(var(--accent));
+      border: 1px solid hsl(var(--border));
+      border-radius: 0.35rem;
+      background: hsl(var(--card));
+      display: block;
+    }
+    .back-item span {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.7rem;
+      color: hsl(var(--muted-foreground));
+    }
+    .install-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: end;
+      margin-bottom: 1rem;
+    }
+    .install-head h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+    .install-head p {
+      margin: 0.4rem 0 0;
+      color: hsl(var(--muted-foreground));
+      max-width: 38rem;
+    }
+    .code {
+      position: relative;
+      border: 1px solid hsl(var(--border));
+      border-radius: var(--radius);
+      background: hsl(var(--muted));
+      overflow: hidden;
+    }
+    .code-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.7rem;
+      border-bottom: 1px solid hsl(var(--border));
+      font-size: 0.72rem;
+      color: hsl(var(--muted-foreground));
+    }
+    .code-bar svg { width: 0.85rem; height: 0.85rem; }
+    .code pre {
+      margin: 0;
+      padding: 0.9rem 3.25rem 0.95rem 1rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8125rem;
+      line-height: 1.7;
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .copy {
+      position: absolute;
+      top: 2.35rem;
+      right: 0.45rem;
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      background: hsl(var(--card));
+      color: hsl(var(--foreground));
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 180ms ease;
+    }
+    .copy:hover { background: hsl(var(--muted)); }
+    .copy svg { width: 1rem; height: 1rem; }
+    .copy svg[hidden] { display: none; }
+    .note {
+      margin: 0.85rem 0 0;
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+      max-width: 42rem;
+    }
+    footer {
+      border-top: 1px solid hsl(var(--border));
+      padding: 1.5rem 0 2.5rem;
+      color: hsl(var(--muted-foreground));
+      font-size: 0.8125rem;
+    }
+    .foot {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem 1.5rem;
+    }
+    footer a { color: hsl(var(--foreground)); text-underline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .float-card, .demo-spread, .demo-spread.is-action { animation: none; }
+      .btn, .nav-links a, .icon-btn, .copy, .demo-spread-face { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3C5.37.3 0 5.67 0 12.3c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.28-.01-1.04-.02-2.04-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.29 0 .32.22.7.83.58C20.56 22.1 24 17.6 24 12.3 24 5.67 18.63.3 12 .3Z"/></symbol>
+    <symbol id="i-click" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.2 4.8 20l3.1-.8 1.7 3.2 2.2-4.1"/><path d="m14 5 1.5 1.5"/><path d="M18.5 6.5 20 5"/><path d="m9.2 9.2 7.4-4.6a1 1 0 0 1 1.4.4l2.2 5.3a1 1 0 0 1-.5 1.3L12 14.4"/></symbol>
+    <symbol id="i-move" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9 2 12l3 3"/><path d="M9 5 12 2l3 3"/><path d="M15 19 12 22l-3-3"/><path d="M19 9 22 12l-3 3"/><path d="M2 12h20"/><path d="M12 2v20"/></symbol>
+    <symbol id="i-fan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9.2" y="4.2" width="6.2" height="10.4" rx="1" transform="rotate(-18 12.3 9.4)"/><rect x="9.2" y="4.2" width="6.2" height="10.4" rx="1"/><rect x="9.2" y="4.2" width="6.2" height="10.4" rx="1" transform="rotate(18 12.3 9.4)"/></symbol>
+    <symbol id="i-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v6c0 5 3.4 8.4 7 9.5 3.6-1.1 7-4.5 7-9.5V6Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-term" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m8 9 3 3-3 3"/><path d="M13 15h4"/></symbol>
+    <symbol id="back-classic" viewBox="0 0 100 160"><rect x="6" y="6" width="88" height="148" rx="4" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".45"/><circle cx="50" cy="80" r="32" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5"/><circle cx="50" cy="80" r="22" fill="none" stroke="currentColor" stroke-width=".9" opacity=".7"/><path d="M50 60 L52 78 L70 80 L52 82 L50 100 L48 82 L30 80 L48 78 Z" fill="currentColor"/></symbol>
+    <symbol id="back-celestial" viewBox="0 0 100 160"><rect x="6" y="6" width="88" height="148" rx="4" fill="none" stroke="currentColor" stroke-width=".9" opacity=".35"/><g opacity=".85" stroke="currentColor" stroke-width=".7"><line x1="20" y1="40" x2="32" y2="48"/><line x1="32" y1="48" x2="44" y2="58"/><line x1="44" y1="58" x2="56" y2="62"/><line x1="56" y1="62" x2="68" y2="58"/><line x1="68" y1="58" x2="78" y2="50"/><line x1="78" y1="50" x2="86" y2="40"/></g><circle cx="20" cy="40" r="1.6" fill="currentColor"/><circle cx="32" cy="48" r="1.3" fill="currentColor"/><circle cx="44" cy="58" r="1.4" fill="currentColor"/><circle cx="56" cy="62" r="1.5" fill="currentColor"/><circle cx="68" cy="58" r="1.3" fill="currentColor"/><circle cx="78" cy="50" r="1.4" fill="currentColor"/><circle cx="86" cy="40" r="1.7" fill="currentColor"/><path d="M50 90 A20 20 0 1 0 50 130 A14 20 0 1 1 50 90 Z" fill="currentColor" opacity=".85"/></symbol>
+    <symbol id="back-sacred" viewBox="0 0 100 160"><circle cx="50" cy="80" r="38" fill="none" stroke="currentColor" stroke-width=".9" opacity=".4"/><circle cx="50" cy="80" r="26" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/><polygon points="50,55 72,90 28,90" fill="none" stroke="currentColor" stroke-width="1.1"/><polygon points="50,105 28,70 72,70" fill="none" stroke="currentColor" stroke-width="1.1"/><circle cx="50" cy="80" r="2" fill="currentColor"/><circle cx="50" cy="42" r="1.2" fill="currentColor"/><circle cx="83" cy="61" r="1.2" fill="currentColor"/><circle cx="83" cy="99" r="1.2" fill="currentColor"/><circle cx="50" cy="118" r="1.2" fill="currentColor"/><circle cx="17" cy="99" r="1.2" fill="currentColor"/><circle cx="17" cy="61" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="back-floral" viewBox="0 0 100 160"><g fill="none" stroke="currentColor" stroke-width="1" opacity=".8"><circle cx="50" cy="80" r="14"/><circle cx="50" cy="66" r="14"/><circle cx="50" cy="94" r="14"/><circle cx="62.1" cy="73" r="14"/><circle cx="62.1" cy="87" r="14"/><circle cx="37.9" cy="73" r="14"/><circle cx="37.9" cy="87" r="14"/></g><circle cx="50" cy="80" r="34" fill="none" stroke="currentColor" stroke-width=".8" opacity=".4"/><circle cx="50" cy="80" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="back-eye" viewBox="0 0 100 160"><circle cx="50" cy="80" r="34" fill="none" stroke="currentColor" stroke-width=".9" opacity=".4"/><circle cx="50" cy="80" r="22" fill="none" stroke="currentColor" stroke-width="1" opacity=".5"/><g stroke="currentColor" stroke-width=".7" opacity=".5"><line x1="50" y1="54" x2="50" y2="48"/><line x1="73" y1="67" x2="78" y2="63"/><line x1="73" y1="93" x2="78" y2="97"/><line x1="50" y1="106" x2="50" y2="112"/><line x1="27" y1="93" x2="22" y2="97"/><line x1="27" y1="67" x2="22" y2="63"/></g><path d="M30 80 Q50 60 70 80 Q50 100 30 80 Z" fill="none" stroke="currentColor" stroke-width="1.1"/><circle cx="50" cy="80" r="6.5" fill="currentColor" opacity=".85"/><circle cx="50" cy="80" r="2.4" fill="hsl(var(--card))"/></symbol>
+    <symbol id="face-hermit" viewBox="0 0 80 120" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M40 28c-7 0-12 5-12 12v6h24v-6c0-7-5-12-12-12Z"/><path d="M28 46h24v8H28z" fill="currentColor" opacity=".18" stroke="none"/><rect x="44" y="38" width="12" height="16" rx="2"/><circle cx="50" cy="46" r="3.2" fill="currentColor" opacity=".45" stroke="none"/><path d="M40 56v28"/><path d="M32 92 40 84l8 8"/><path d="M28 78h10"/></symbol>
+    <symbol id="face-wands" viewBox="0 0 80 120" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"><g transform="translate(40 62) rotate(-28)"><line x1="-16" y1="22" x2="-10" y2="-26"/><line x1="-10" y1="24" x2="-4" y2="-24"/><line x1="-4" y1="26" x2="2" y2="-22"/><line x1="2" y1="26" x2="8" y2="-22"/><line x1="8" y1="24" x2="14" y2="-24"/><line x1="-13" y1="10" x2="-7" y2="-12"/><line x1="-1" y1="12" x2="5" y2="-10"/><line x1="11" y1="10" x2="17" y2="-12"/><line x1="-12" y1="-26" x2="-8" y2="-26"/><line x1="12" y1="-24" x2="16" y2="-24"/></g></symbol>
+    <symbol id="face-pents" viewBox="0 0 80 120" fill="currentColor"><g transform="translate(40 38)" opacity=".92"><circle r="9" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M0-6.2 1.8-1.9 6.2-1.9 2.6.7 3.9 5.1 0 2.5-3.9 5.1-2.6.7-6.2-1.9-1.8-1.9Z"/></g><g transform="translate(26 78)" opacity=".92"><circle r="9" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M0-6.2 1.8-1.9 6.2-1.9 2.6.7 3.9 5.1 0 2.5-3.9 5.1-2.6.7-6.2-1.9-1.8-1.9Z"/></g><g transform="translate(54 78)" opacity=".92"><circle r="9" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M0-6.2 1.8-1.9 6.2-1.9 2.6.7 3.9 5.1 0 2.5-3.9 5.1-2.6.7-6.2-1.9-1.8-1.9Z"/></g></symbol>
+  </svg>
+
+  <a class="skip" href="#main">
+    <span class="zh">跳到正文</span>
+    <span class="en">Skip to content</span>
+  </a>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top">
+        <svg class="brand-mark" viewBox="0 0 100 160" aria-hidden="true"><use href="#back-classic"/></svg>
+        Lumina
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#install">
+          <svg><use href="#i-download"/></svg>
+          <span class="zh">安装</span>
+          <span class="en">Install</span>
+        </a>
+        <a href="https://github.com/shetengteng/dsh-lumina-tarot" rel="noopener noreferrer">
+          <svg><use href="#i-github"/></svg>
+          GitHub
+        </a>
+        <button class="icon-btn" type="button" id="lang-btn" aria-label="Switch language">
+          <span class="zh">EN</span>
+          <span class="en">中</span>
+        </button>
+        <button class="icon-btn" type="button" id="theme-btn" aria-label="Toggle color theme">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M21 14.3A8.5 8.5 0 1 1 9.7 3 7 7 0 0 0 21 14.3Z" />
+          </svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap hero" id="top">
+      <div>
+        <span class="kicker">
+          <svg><use href="#i-layers"/></svg>
+          DeepSeek Harness
+        </span>
+        <h1>
+          <span class="zh">点一张牌，<br />让对话来解读</span>
+          <span class="en">Draw a card.<br />Let the chat read it.</span>
+        </h1>
+        <p class="lede zh">完整 78 张牌库住进 dsh web。右下角浮着一张可拖动的牌背：单击抽牌，右击打开扇形菜单。右侧示意里可以点这张牌，试四种牌阵。</p>
+        <p class="lede en">A full 78-card deck inside dsh web. A draggable card back floats in the corner: click to draw, right-click for a fan menu. Try the card in the mock: it opens the same fan.</p>
+        <div class="cta-row">
+          <a class="btn btn-solid" href="#install">
+            <svg><use href="#i-download"/></svg>
+            <span class="zh">安装插件</span>
+            <span class="en">Install plugin</span>
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/shetengteng/dsh-lumina-tarot" rel="noopener noreferrer">
+            <svg><use href="#i-github"/></svg>
+            <span class="zh">查看源码</span>
+            <span class="en">View source</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="stage" id="demo-stage">
+        <div class="stage-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span>dsh web</span>
+        </div>
+        <div class="stage-body">
+          <div class="bubble zh">帮我看看最近的事业运</div>
+          <div class="bubble en">How is my career looking lately?</div>
+          <div class="chip" id="demo-chip"><svg><use href="#i-layers"/></svg> <span id="demo-chip-text">lumina_draw · three-card</span></div>
+          <div class="spread-mini" id="demo-result">
+            <div class="mini-card">
+              <span class="corner">IX</span>
+              <div class="mini-art"><svg viewBox="0 0 80 120"><use href="#face-hermit"/></svg></div>
+              <div class="mini-meta"><strong class="zh">过去</strong><strong class="en">Past</strong><span class="zh">隐者 · 正</span><span class="en">Hermit · up</span></div>
+            </div>
+            <div class="mini-card">
+              <span class="corner">8</span>
+              <div class="mini-art"><svg viewBox="0 0 80 120"><use href="#face-wands"/></svg></div>
+              <div class="mini-meta"><strong class="zh">现在</strong><strong class="en">Present</strong><span class="zh">权杖八 · 正</span><span class="en">8 of Wands · up</span></div>
+            </div>
+            <div class="mini-card">
+              <span class="corner">3</span>
+              <div class="mini-art is-rev"><svg viewBox="0 0 80 120"><use href="#face-pents"/></svg></div>
+              <div class="mini-meta"><strong class="zh">将来</strong><strong class="en">Future</strong><span class="zh">星币三 · 逆</span><span class="en">3 of Pent · rev</span></div>
+            </div>
+          </div>
+          <div class="ask">
+            <svg><use href="#i-msg"/></svg>
+            <span class="zh">让 AI 解读</span>
+            <span class="en">Ask AI to interpret</span>
+          </div>
+        </div>
+        <div class="float-wrap is-open" id="float-wrap">
+          <div class="demo-spreads" id="demo-spreads" role="menu" aria-label="Spread menu">
+            <button type="button" class="demo-spread" role="menuitem" data-spread="single" style="--a:0deg;--i:0">
+              <span class="demo-spread-face"><span class="zh">单张指引</span><span class="en">Single</span></span>
+            </button>
+            <button type="button" class="demo-spread" role="menuitem" data-spread="three-card" data-on="1" style="--a:-22.5deg;--i:1">
+              <span class="demo-spread-face"><span class="zh">三牌时间线</span><span class="en">Three-card</span></span>
+            </button>
+            <button type="button" class="demo-spread" role="menuitem" data-spread="cross" style="--a:-45deg;--i:2">
+              <span class="demo-spread-face"><span class="zh">十字</span><span class="en">Cross</span></span>
+            </button>
+            <button type="button" class="demo-spread" role="menuitem" data-spread="celtic-lite" style="--a:-67.5deg;--i:3">
+              <span class="demo-spread-face"><span class="zh">凯尔特精简</span><span class="en">Celtic lite</span></span>
+            </button>
+            <button type="button" class="demo-spread is-action" role="menuitem" data-action="last" style="--a:-90deg;--i:4">
+              <span class="demo-spread-face"><span class="zh">上次结果</span><span class="en">Last result</span></span>
+            </button>
+            <button type="button" class="demo-spread is-action" role="menuitem" data-action="history" style="--a:-107.55deg;--i:5">
+              <span class="demo-spread-face"><span class="zh">查看历史</span><span class="en">History</span></span>
+            </button>
+          </div>
+          <button type="button" class="float-card" id="float-btn" aria-expanded="true" aria-controls="demo-spreads">
+            <svg viewBox="0 0 100 160" aria-hidden="true"><use href="#back-classic"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <section class="wrap">
+      <p class="section-label">
+        <span class="zh">怎么用</span>
+        <span class="en">How it works</span>
+      </p>
+      <div class="steps">
+        <article class="step">
+          <div class="step-mark">
+            <span class="step-ico"><svg><use href="#i-click"/></svg></span>
+            <span class="step-num">01</span>
+          </div>
+          <div>
+            <h2>
+              <span class="zh">单击抽牌</span>
+              <span class="en">Click to draw</span>
+            </h2>
+            <p class="zh">按当前默认牌阵立刻抽牌。先看到一叠牌在洗，洗完翻开。默认是三牌时间线。</p>
+            <p class="en">Draws with the current default spread. You see a shuffle, then the cards flip. Default is the three-card timeline.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-mark">
+            <span class="step-ico"><svg><use href="#i-move"/></svg></span>
+            <span class="step-num">02</span>
+          </div>
+          <div>
+            <h2>
+              <span class="zh">拖动记住位置</span>
+              <span class="en">Drag to place it</span>
+            </h2>
+            <p class="zh">位移过阈值只改坐标。松手后记住，刷新还在。拖过的这次不会抽牌。</p>
+            <p class="en">Past the drag threshold, only position changes. It persists on release. A drag never counts as a draw.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-mark">
+            <span class="step-ico"><svg><use href="#i-fan"/></svg></span>
+            <span class="step-num">03</span>
+          </div>
+          <div>
+            <h2>
+              <span class="zh">右击扇形菜单</span>
+              <span class="en">Right-click the fan</span>
+            </h2>
+            <p class="zh">四种牌阵、上次结果、查看历史。浏览器自带菜单不会出现。卡面与今日一牌在设置页。</p>
+            <p class="en">Four spreads, last result, and history. The browser menu is suppressed. Deck art and today’s card live in settings.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <p class="section-label">
+        <span class="zh">四种牌阵</span>
+        <span class="en">Four spreads</span>
+      </p>
+      <div class="spread-grid">
+        <article class="spread-item">
+          <div class="lay lay-single" aria-hidden="true"><span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span></div>
+          <p class="spread-count">1</p>
+          <h3><span class="zh">单张指引</span><span class="en">Single</span></h3>
+          <p class="zh">一卡答疑，直指当下。</p>
+          <p class="en">One card for the question at hand.</p>
+        </article>
+        <article class="spread-item">
+          <div class="lay-three lay" aria-hidden="true">
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+          </div>
+          <p class="spread-count">3</p>
+          <h3><span class="zh">三牌时间线</span><span class="en">Three-card timeline</span></h3>
+          <p class="zh">过去、现在、将来。默认牌阵。</p>
+          <p class="en">Past, present, future. The default.</p>
+        </article>
+        <article class="spread-item">
+          <div class="lay lay-cross" aria-hidden="true">
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+          </div>
+          <p class="spread-count">5</p>
+          <h3><span class="zh">十字</span><span class="en">Cross</span></h3>
+          <p class="zh">情境、阻碍、潜意识、显意识、建议。</p>
+          <p class="en">Situation, challenge, inner, outer, advice.</p>
+        </article>
+        <article class="spread-item">
+          <div class="lay lay-celtic" aria-hidden="true">
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+            <span class="pip"><svg viewBox="0 0 100 160"><use href="#back-classic"/></svg></span>
+          </div>
+          <p class="spread-count">6</p>
+          <h3><span class="zh">凯尔特精简</span><span class="en">Celtic lite</span></h3>
+          <p class="zh">以凯尔特十字为骨架的六张深度。</p>
+          <p class="en">A six-card cut of the Celtic cross.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <p class="section-label">
+        <span class="zh">五种牌背</span>
+        <span class="en">Five card backs</span>
+      </p>
+      <div class="backs">
+        <div class="back-item">
+          <svg class="back-face" viewBox="0 0 100 160"><use href="#back-classic"/></svg>
+          <span class="zh">经典</span><span class="en">Classic</span>
+        </div>
+        <div class="back-item">
+          <svg class="back-face" viewBox="0 0 100 160"><use href="#back-celestial"/></svg>
+          <span class="zh">星图</span><span class="en">Celestial</span>
+        </div>
+        <div class="back-item">
+          <svg class="back-face" viewBox="0 0 100 160"><use href="#back-sacred"/></svg>
+          <span class="zh">神圣几何</span><span class="en">Sacred</span>
+        </div>
+        <div class="back-item">
+          <svg class="back-face" viewBox="0 0 100 160"><use href="#back-floral"/></svg>
+          <span class="zh">生命之花</span><span class="en">Floral</span>
+        </div>
+        <div class="back-item">
+          <svg class="back-face" viewBox="0 0 100 160"><use href="#back-eye"/></svg>
+          <span class="zh">神秘之眼</span><span class="en">Eye</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="truth">
+        <div>
+          <div class="truth-kicker"><svg><use href="#i-shield"/></svg><span class="zh">Host 抽牌</span><span class="en">Host draws</span></div>
+          <h2>
+            <span class="zh">模型不会编造牌面</span>
+            <span class="en">The model cannot invent cards</span>
+          </h2>
+          <p class="zh">抽牌与 followup 走 Host 工具。你也可以直接说「帮我占卜」或敲 <code>/lumina draw</code>。结果出来后点「让 AI 解读」，当前会话基于已经抽好的牌写解读。</p>
+          <p class="en">Draws and follow-ups go through Host tools. You can also say “give me a reading” or type <code>/lumina draw</code>. Ask AI to interpret sends a follow-up based on the cards already drawn.</p>
+        </div>
+        <ul class="tools">
+          <li><svg class="ticon"><use href="#i-layers"/></svg><code>lumina_draw</code><span class="zh">按牌阵抽牌</span><span class="en">Draw a spread</span></li>
+          <li><svg class="ticon"><use href="#i-sun"/></svg><code>lumina_today</code><span class="zh">今日一牌，当天稳定</span><span class="en">Today’s card, stable for the day</span></li>
+          <li><svg class="ticon"><use href="#i-layout"/></svg><code>lumina_list_spreads</code><span class="zh">列出四种牌阵</span><span class="en">List the four spreads</span></li>
+          <li><svg class="ticon"><use href="#i-search"/></svg><code>lumina_lookup_card</code><span class="zh">按 id / 中英文名查询</span><span class="en">Look up by id or name</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap" id="install">
+      <div class="install-head">
+        <div>
+          <h2>
+            <span class="zh">一条命令装上</span>
+            <span class="en">Install with one command</span>
+          </h2>
+          <p class="zh">Host 与界面是同一个包。本机要有 dsh CLI。不要再跑第二条安装命令。</p>
+          <p class="en">Host and UI ship in the same package. You need the dsh CLI. Do not run a second add command.</p>
+        </div>
+      </div>
+      <div class="code">
+        <div class="code-bar"><svg><use href="#i-term"/></svg> terminal</div>
+        <pre id="install-cmd">dsh plugin --profile web add github:shetengteng/dsh-lumina-tarot</pre>
+        <button class="copy" type="button" id="copy-btn" aria-label="复制安装命令">
+          <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="9" y="9" width="11" height="11" rx="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+          <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" hidden>
+            <path d="M5 12.5 10 17.5 19 7.5" />
+          </svg>
+        </button>
+      </div>
+      <p class="note zh">然后执行 <code>dsh web</code>。用 <code>dsh --profile web --dump-config</code> 核对应出现 <code>dsh-lumina-tarot</code> 层。仓库根目录也可 <code>dsh plugin --profile web add .</code>。</p>
+      <p class="note en">Then run <code>dsh web</code>. <code>dsh --profile web --dump-config</code> should show a <code>dsh-lumina-tarot</code> layer. From the repo root you can also <code>dsh plugin --profile web add .</code>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <p class="zh">源码 MIT。<a href="https://github.com/shetengteng/dsh-lumina-tarot/blob/main/NOTICE">NOTICE</a>：韦特为 Public Domain；水彩 Aquatic 为 CC BY-NC-SA 3.0，仅限个人非商业用途。</p>
+      <p class="en">Source MIT. See <a href="https://github.com/shetengteng/dsh-lumina-tarot/blob/main/NOTICE">NOTICE</a>: RWS is Public Domain; Aquatic watercolor is CC BY-NC-SA 3.0, personal non-commercial only.</p>
+      <p>dsh-lumina-tarot</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var themeBtn = document.getElementById("theme-btn");
+      var langBtn = document.getElementById("lang-btn");
+      var copyBtn = document.getElementById("copy-btn");
+      var cmd = document.getElementById("install-cmd").textContent.trim();
+      var copyIcon = copyBtn.querySelector(".icon-copy");
+      var checkIcon = copyBtn.querySelector(".icon-check");
+
+      function copyLabel(copied) {
+        if (copied) return root.dataset.lang === "en" ? "Copied" : "已复制";
+        return root.dataset.lang === "en" ? "Copy install command" : "复制安装命令";
+      }
+      function applyLang(lang) {
+        root.dataset.lang = lang;
+        root.lang = lang === "en" ? "en" : "zh-CN";
+        document.title = lang === "en"
+          ? "Lumina Tarot · DeepSeek Harness plugin"
+          : "Lumina 塔罗 · DeepSeek Harness 插件";
+        if (!copyBtn.disabled) copyBtn.setAttribute("aria-label", copyLabel(false));
+        try { localStorage.setItem("lumina-docs-lang", lang); } catch (e) {}
+      }
+
+      themeBtn.addEventListener("click", function () {
+        var next = root.classList.toggle("dark") ? "dark" : "light";
+        try { localStorage.setItem("lumina-docs-theme", next); } catch (e) {}
+      });
+      langBtn.addEventListener("click", function () {
+        applyLang(root.dataset.lang === "zh" ? "en" : "zh");
+      });
+      copyBtn.addEventListener("click", function () {
+        copyBtn.disabled = true;
+        var done = function () {
+          copyIcon.hidden = true;
+          checkIcon.hidden = false;
+          copyBtn.setAttribute("aria-label", copyLabel(true));
+          window.setTimeout(function () {
+            copyBtn.disabled = false;
+            copyIcon.hidden = false;
+            checkIcon.hidden = true;
+            copyBtn.setAttribute("aria-label", copyLabel(false));
+          }, 1400);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(cmd).then(done).catch(function () {
+            copyBtn.disabled = false;
+          });
+        } else {
+          copyBtn.disabled = false;
+        }
+      });
+
+      var wrap = document.getElementById("float-wrap");
+      var floatBtn = document.getElementById("float-btn");
+      var chipText = document.getElementById("demo-chip-text");
+      var spreadBtns = wrap.querySelectorAll("[data-spread]");
+      var names = {
+        single: { zh: "lumina_draw · single", en: "lumina_draw · single" },
+        "three-card": { zh: "lumina_draw · three-card", en: "lumina_draw · three-card" },
+        cross: { zh: "lumina_draw · cross", en: "lumina_draw · cross" },
+        "celtic-lite": { zh: "lumina_draw · celtic-lite", en: "lumina_draw · celtic-lite" },
+        last: { zh: "上次结果", en: "Last result" },
+        history: { zh: "查看历史", en: "History" }
+      };
+      function lang() { return root.dataset.lang === "en" ? "en" : "zh"; }
+      function setOpen(open) {
+        if (open) {
+          wrap.classList.remove("is-open");
+          void wrap.offsetWidth;
+        }
+        wrap.classList.toggle("is-open", open);
+        floatBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        floatBtn.setAttribute("aria-label", open
+          ? (lang() === "en" ? "Close spread menu" : "关闭牌阵菜单")
+          : (lang() === "en" ? "Open spread menu" : "打开牌阵菜单"));
+      }
+      function setChip(key) {
+        chipText.textContent = names[key][lang()];
+      }
+      floatBtn.setAttribute("aria-label", lang() === "en" ? "Close spread menu" : "关闭牌阵菜单");
+      wrap.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+      wrap.addEventListener("contextmenu", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        setOpen(true);
+      });
+      floatBtn.addEventListener("click", function () {
+        setOpen(!wrap.classList.contains("is-open"));
+      });
+      wrap.querySelectorAll(".demo-spread").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var spread = btn.getAttribute("data-spread");
+          var action = btn.getAttribute("data-action");
+          if (spread) {
+            spreadBtns.forEach(function (item) {
+              item.setAttribute("data-on", item === btn ? "1" : "0");
+            });
+            setChip(spread);
+          } else if (action) {
+            setChip(action);
+          }
+        });
+      });
+      document.addEventListener("click", function (event) {
+        if (!wrap.contains(event.target)) setOpen(false);
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") setOpen(false);
+      });
+      langBtn.addEventListener("click", function () {
+        floatBtn.setAttribute(
+          "aria-label",
+          wrap.classList.contains("is-open")
+            ? (lang() === "en" ? "Close spread menu" : "关闭牌阵菜单")
+            : (lang() === "en" ? "Open spread menu" : "打开牌阵菜单")
+        );
+      });
+    })();
+  </script>
+</body>
+</html>

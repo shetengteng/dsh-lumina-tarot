@@ -3,4 +3,5 @@ node_modules/
 *.log
 src/client/*.inner.js
 scripts/e2e/out/
+output/
 
