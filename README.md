@@ -78,6 +78,7 @@ dsh plugin --profile web remove dsh-lumina-tarot
 ```sh
 pnpm install
 pnpm build    # 同时打出 Host ESM 和 Client 包
+pnpm e2e      # 真实 dsh web 端到端（先 dsh web；对照 design/2026-08-27-01-端到端测试场景.md）
 ```
 
 `prepare` 和 `build` 是同一条构建。改完 Client 后，已 link 进 profile 的包通常要重启 `dsh web`，再刷新浏览器。

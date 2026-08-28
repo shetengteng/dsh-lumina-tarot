@@ -78,6 +78,7 @@ Slash commands also work: `/lumina draw`, `/lumina today`, `/lumina interpret`, 
 ```sh
 pnpm install
 pnpm build    # Host ESM + Client bundle
+pnpm e2e      # live dsh web e2e (start dsh web first; see design/2026-08-27-01-端到端测试场景.md)
 ```
 
 `prepare` is the same build. After Client changes, a package already linked into the profile usually needs a `dsh web` restart, then a browser refresh.

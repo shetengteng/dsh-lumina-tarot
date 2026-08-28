@@ -36,7 +36,7 @@ export async function installLuminaSettings(
     showFloatCard: z.boolean().default(true),
     floatX: z.number().min(0).max(1).default(0.92),
     floatY: z.number().min(0).max(1).default(0.82),
-    panelOpacity: z.number().min(0.2).max(0.8).default(0.5),
+    panelOpacity: z.number().min(0.2).max(0.8).default(0.8),
     defaultSpread: z.union(['single', 'three-card', 'cross', 'celtic-lite']).default('three-card'),
     reversedRate: z.number().min(0).max(1).default(0.35),
     historyLimit: z.number().step(1).min(1).max(500).default(100),
