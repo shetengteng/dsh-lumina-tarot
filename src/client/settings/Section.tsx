@@ -19,6 +19,8 @@ import { BrandLogo } from './logo.tsx'
 import { SelectRow, SliderRow, SwitchRow } from './rows.tsx'
 import { ensureSettingsStyles } from './styles.ts'
 
+const PLUGIN_UPDATE_CMD = 'dsh plugin --profile web update dsh-lumina-tarot'
+
 export function createSettingsSection(
   scope: SettingsHandle | undefined,
   localeApi?: LocaleHandle,
@@ -238,6 +240,9 @@ export function createSettingsSection(
           <div className="lumina-set-title">{tx('about')}</div>
           <p className="lumina-set-desc">{tx('aboutLine1')}</p>
           <p className="lumina-set-desc">{tx('aboutLine2')}</p>
+          <p className="lumina-set-desc">{tx('aboutUpdate')}</p>
+          <pre className="lumina-set-code">{PLUGIN_UPDATE_CMD}</pre>
+          <p className="lumina-set-desc">{tx('aboutUpdateHint')}</p>
         </div>
       </div>
     )

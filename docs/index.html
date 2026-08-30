@@ -742,6 +742,23 @@
       color: hsl(var(--muted-foreground));
       max-width: 42rem;
     }
+    .install-more {
+      margin-top: 1.5rem;
+    }
+    .install-more h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+    .install-more p {
+      margin: 0.4rem 0 0;
+      color: hsl(var(--muted-foreground));
+      max-width: 42rem;
+      font-size: 0.875rem;
+    }
+    .install-more .code {
+      margin-top: 0.65rem;
+    }
     footer {
       border-top: 1px solid hsl(var(--border));
       padding: 1.5rem 0 2.5rem;
@@ -1079,7 +1096,7 @@
       <div class="code">
         <div class="code-bar"><svg><use href="#i-term"/></svg> terminal</div>
         <pre id="install-cmd">dsh plugin --profile web add github:shetengteng/dsh-lumina-tarot</pre>
-        <button class="copy" type="button" id="copy-btn" aria-label="复制安装命令">
+        <button class="copy" type="button" data-copy="install-cmd" aria-label="复制安装命令">
           <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <rect x="9" y="9" width="11" height="11" rx="2" />
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
@@ -1091,6 +1108,29 @@
       </div>
       <p class="note zh">然后执行 <code>dsh web</code>。用 <code>dsh --profile web --dump-config</code> 核对应出现 <code>dsh-lumina-tarot</code> 层。仓库根目录也可 <code>dsh plugin --profile web add .</code>。</p>
       <p class="note en">Then run <code>dsh web</code>. <code>dsh --profile web --dump-config</code> should show a <code>dsh-lumina-tarot</code> layer. From the repo root you can also <code>dsh plugin --profile web add .</code>.</p>
+      <div class="install-more">
+        <h3>
+          <span class="zh">更新</span>
+          <span class="en">Update</span>
+        </h3>
+        <p class="zh">DSH 不会自动更新插件。GitHub 安装后执行下面命令，再重启 <code>dsh web</code>。</p>
+        <p class="en">DSH does not auto-update plugins. After a GitHub install, run this, then restart <code>dsh web</code>.</p>
+        <div class="code">
+          <div class="code-bar"><svg><use href="#i-term"/></svg> terminal</div>
+          <pre id="update-cmd">dsh plugin --profile web update dsh-lumina-tarot</pre>
+          <button class="copy" type="button" data-copy="update-cmd" aria-label="复制更新命令">
+            <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="9" y="9" width="11" height="11" rx="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" hidden>
+              <path d="M5 12.5 10 17.5 19 7.5" />
+            </svg>
+          </button>
+        </div>
+        <p class="note zh">卸载：<code>dsh plugin --profile web remove dsh-lumina-tarot</code>。本地 <code>add .</code> 不走 <code>update</code>，改完源码后 <code>pnpm build</code> 再重启。</p>
+        <p class="note en">Uninstall: <code>dsh plugin --profile web remove dsh-lumina-tarot</code>. A local <code>add .</code> does not use <code>update</code> — <code>pnpm build</code>, then restart.</p>
+      </div>
     </section>
   </main>
 
@@ -1107,22 +1147,29 @@
       var root = document.documentElement;
       var themeBtn = document.getElementById("theme-btn");
       var langBtn = document.getElementById("lang-btn");
-      var copyBtn = document.getElementById("copy-btn");
-      var cmd = document.getElementById("install-cmd").textContent.trim();
-      var copyIcon = copyBtn.querySelector(".icon-copy");
-      var checkIcon = copyBtn.querySelector(".icon-check");
+      var copyBtns = document.querySelectorAll(".copy");
 
-      function copyLabel(copied) {
-        if (copied) return root.dataset.lang === "en" ? "Copied" : "已复制";
-        return root.dataset.lang === "en" ? "Copy install command" : "复制安装命令";
+      function copyKind(btn) {
+        return btn.getAttribute("data-copy") === "update-cmd" ? "update" : "install";
       }
+      function copyLabel(btn, copied) {
+        var en = root.dataset.lang === "en";
+        if (copied) return en ? "Copied" : "已复制";
+        if (copyKind(btn) === "update") return en ? "Copy update command" : "复制更新命令";
+        return en ? "Copy install command" : "复制安装命令";
+      }
+      copyBtns.forEach(function (btn) {
+        btn.setAttribute("aria-label", copyLabel(btn, false));
+      });
       function applyLang(lang) {
         root.dataset.lang = lang;
         root.lang = lang === "en" ? "en" : "zh-CN";
         document.title = lang === "en"
           ? "Lumina Tarot · DeepSeek Harness plugin"
           : "Lumina 塔罗 · DeepSeek Harness 插件";
-        if (!copyBtn.disabled) copyBtn.setAttribute("aria-label", copyLabel(false));
+        copyBtns.forEach(function (btn) {
+          if (!btn.disabled) btn.setAttribute("aria-label", copyLabel(btn, false));
+        });
         try { localStorage.setItem("lumina-docs-lang", lang); } catch (e) {}
       }
 
@@ -1133,26 +1180,32 @@
       langBtn.addEventListener("click", function () {
         applyLang(root.dataset.lang === "zh" ? "en" : "zh");
       });
-      copyBtn.addEventListener("click", function () {
-        copyBtn.disabled = true;
-        var done = function () {
-          copyIcon.hidden = true;
-          checkIcon.hidden = false;
-          copyBtn.setAttribute("aria-label", copyLabel(true));
-          window.setTimeout(function () {
-            copyBtn.disabled = false;
-            copyIcon.hidden = false;
-            checkIcon.hidden = true;
-            copyBtn.setAttribute("aria-label", copyLabel(false));
-          }, 1400);
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(cmd).then(done).catch(function () {
-            copyBtn.disabled = false;
-          });
-        } else {
-          copyBtn.disabled = false;
-        }
+      copyBtns.forEach(function (btn) {
+        var pre = document.getElementById(btn.getAttribute("data-copy"));
+        var copyIcon = btn.querySelector(".icon-copy");
+        var checkIcon = btn.querySelector(".icon-check");
+        btn.addEventListener("click", function () {
+          var text = pre ? pre.textContent.trim() : "";
+          btn.disabled = true;
+          var done = function () {
+            copyIcon.hidden = true;
+            checkIcon.hidden = false;
+            btn.setAttribute("aria-label", copyLabel(btn, true));
+            window.setTimeout(function () {
+              btn.disabled = false;
+              copyIcon.hidden = false;
+              checkIcon.hidden = true;
+              btn.setAttribute("aria-label", copyLabel(btn, false));
+            }, 1400);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done).catch(function () {
+              btn.disabled = false;
+            });
+          } else {
+            btn.disabled = false;
+          }
+        });
       });
 
       var wrap = document.getElementById("float-wrap");

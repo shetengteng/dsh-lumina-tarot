@@ -52,7 +52,22 @@ dsh web
 
 You should see a `# == dsh-lumina-tarot` layer in `dump-config`. A headless profile can still load the Host tools; it just won’t show the floating card.
 
-Uninstall (both sides at once):
+## Update
+
+DSH does **not** check for or install plugin updates on its own. The lifecycle is `dsh plugin` forwarding to pnpm in the current profile: `add` / `update` / `remove`. After the files on disk change, the running process still uses the bundle from this boot — restart `dsh web`.
+
+If you installed from GitHub and want the default-branch tip:
+
+```sh
+dsh plugin --profile web update dsh-lumina-tarot
+dsh web
+```
+
+A `#<commit>` pin will not follow the default branch; `add` again with the new commit to move. A local `add .` is a dev link and does not use `update`: run `pnpm build`, restart `dsh web`, then refresh the browser.
+
+## Uninstall
+
+Both sides at once:
 
 ```sh
 dsh plugin --profile web remove dsh-lumina-tarot

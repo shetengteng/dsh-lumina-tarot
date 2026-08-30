@@ -175,6 +175,18 @@ export function ensureSettingsStyles(): void {
   gap: 8px;
   padding: 16px 0;
 }
+.lumina-set-code {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 18px;
+  background: var(--dsw-alias-bg-module-platform);
+  color: var(--dsw-alias-label-primary);
+  overflow-x: auto;
+  user-select: all;
+}
 .lumina-set-block {
   display: flex;
   flex-direction: column;

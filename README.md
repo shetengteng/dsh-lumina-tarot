@@ -52,7 +52,22 @@ dsh web
 
 `dump-config` 里应出现 `# == dsh-lumina-tarot`。没有界面的 headless profile 也能装，模型照样能抽牌，只是没有悬浮牌背。
 
-卸载（两面一起卸）：
+## 更新
+
+DSH **不会**自动检查或安装插件新版本。生命周期就是 `dsh plugin` 转发给当前 profile 里的 pnpm：`add` / `update` / `remove`。磁盘改完后，正在跑的进程仍用这次启动时装上的那份代码，必须重启 `dsh web`。
+
+GitHub 安装后要拉默认分支最新代码：
+
+```sh
+dsh plugin --profile web update dsh-lumina-tarot
+dsh web
+```
+
+钉了 `#<commit>` 的安装不会跟着默认分支走；要换提交就再 `add` 一次并写上新的 commit。本地 `add .` 是开发链接，不走 `update`：改完源码后 `pnpm build`，再重启 `dsh web`、刷新浏览器。
+
+## 卸载
+
+两面一起卸：
 
 ```sh
 dsh plugin --profile web remove dsh-lumina-tarot
