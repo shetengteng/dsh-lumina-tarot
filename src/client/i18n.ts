@@ -10,7 +10,7 @@ export type LocaleHandle = {
 
 const ZH = {
   pageTitle: 'Lumina 塔罗',
-  pageVersion: 'v0.1.0',
+  pageVersion: 'v0.1.1',
   pageSub: '悬浮牌背抽牌插件。单击写下问题，右击选择牌组。',
   readonly: '当前无法保存设置。',
   theme: '主题',
@@ -133,7 +133,7 @@ const ZH = {
 
 const EN: Record<keyof typeof ZH, string> = {
   pageTitle: 'Lumina Tarot',
-  pageVersion: 'v0.1.0',
+  pageVersion: 'v0.1.1',
   pageSub: 'A floating card-back plugin. Click to write a question, right-click to choose a deck.',
   readonly: 'Settings cannot be saved right now.',
   theme: 'Theme',
