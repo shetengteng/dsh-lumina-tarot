@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import {
   Menu,
-  IconChevronDownOutline14,
+  IconChevronDownOutlineRegular,
 } from '@deepseek-ai/dsh-client-ui-primitives'
 
 export function SelectRow(props: {
@@ -41,7 +41,7 @@ export function SelectRow(props: {
             onClick={() => props.setOpenId(props.openId === props.id ? null : props.id)}
           >
             {currentLabel}
-            <IconChevronDownOutline14 className="lumina-set-chevron" />
+            <IconChevronDownOutlineRegular className="lumina-set-chevron" />
           </button>
         }
       />

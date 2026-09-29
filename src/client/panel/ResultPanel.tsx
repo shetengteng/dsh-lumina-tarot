@@ -1,8 +1,8 @@
 import type { CSSProperties } from 'react'
 import {
-  IconCloseOutline16,
-  IconRefreshOutline16,
-  IconThinkOutline16,
+  IconCloseOutlineRegular,
+  IconRefreshOutlineRegular,
+  IconThinkOutlineRegular,
 } from '@deepseek-ai/dsh-client-ui-primitives'
 import { CardArt, cornerLabel } from '../face/CardArt.tsx'
 import { ModalDust } from '../fx/ModalDust.tsx'
@@ -162,7 +162,7 @@ export function ResultPanel(props: {
             disabled={!canInterpret}
             onClick={() => startInterpret()}
           >
-            <IconThinkOutline16 size={16} />
+            <IconThinkOutlineRegular size={16} />
             {tx('interpret')}
           </button>
           <button
@@ -173,7 +173,7 @@ export function ResultPanel(props: {
             disabled={busy}
             onClick={() => startDraw(reading?.kind === 'today' ? '/lumina today' : `/lumina draw ${reading?.spreadId ?? pendingSpread}`, reading?.question ?? question.trim())}
           >
-            <IconRefreshOutline16 size={16} />
+            <IconRefreshOutlineRegular size={16} />
           </button>
           <button
             type="button"
@@ -182,7 +182,7 @@ export function ResultPanel(props: {
             title={tx('close')}
             onClick={() => setPhase('idle')}
           >
-            <IconCloseOutline16 size={16} />
+            <IconCloseOutlineRegular size={16} />
           </button>
         </div>
       </>

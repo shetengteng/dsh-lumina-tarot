@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { IconCloseOutline16 } from '@deepseek-ai/dsh-client-ui-primitives'
+import { IconCloseOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
 import { ModalDust } from '../fx/ModalDust.tsx'
 import { scrimFill } from '../fx/scrim.ts'
 import { LUMINA_HISTORY_CLEARED } from '../overlay/commands.ts'
@@ -114,7 +114,7 @@ export function HistoryDialog(props: {
             title={tx('close')}
             onClick={onClose}
           >
-            <IconCloseOutline16 size={16} />
+            <IconCloseOutlineRegular size={16} />
           </button>
         </div>
         <div ref={scrollerRef} className="dsh-lumina-history-body">{body}</div>

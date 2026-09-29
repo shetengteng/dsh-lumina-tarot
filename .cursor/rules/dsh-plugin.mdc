@@ -19,7 +19,7 @@ alwaysApply: true
 ## 座椅与数据
 
 - UI 只能 `ctx.slots.inject` 已有座椅（overlay / settings.section / toolview）。座椅是类型化契约，不是 DOM 选择器。先核对目标 DSH 版本，禁止猜测 slot 名，禁止改壳的私有 DOM。
-- 持久状态的主人在 Host（settings / commands / tools）。Client 只持短暂展示态；经 `remote.commands` / `settingsScope` 回头调 Host。
+- 持久状态的主人在 Host（settings / commands / tools）。Host 通过导出的 volatile `Config` 暴露可编辑字段；Client 只持短暂展示态，经 `remote.commands` / `configForms` 回头调 Host。
 - 浏览器没有 `ctx.agents` / `ctx.tools.execute`。抽牌与 followup 只能走 Host。禁止模型编造牌 id。
 - 乐观更新未获 Host 确认前，不得当成已落盘。必须展示 pending / error / 断连。
 - 每个 `ctx` 注册、订阅、timer、slot 必须能卸载。进程级副作用不要写在模块顶层；Host 资源用 `ctx.effect()` 返回 disposer。

@@ -46,8 +46,8 @@ export type SettingsHandle = {
     writable?: boolean
   }
   subscribe: (listener: () => void) => () => void
-  set: (field: string, value: unknown) => Promise<void>
-  unset: (field: string) => Promise<void>
+  set: (field: string, value: unknown) => Promise<boolean>
+  unset: (field: string) => Promise<boolean>
 }
 
 export function bindLuminaScope(scope: SettingsHandle | undefined): () => void {
@@ -63,7 +63,7 @@ export function bindLuminaScope(scope: SettingsHandle | undefined): () => void {
   return scope.subscribe(sync)
 }
 
-export async function persistLuminaField(
+export function persistLuminaField(
   scope: SettingsHandle | undefined,
   field: keyof LuminaConfig,
   value: LuminaConfig[keyof LuminaConfig],
@@ -75,29 +75,56 @@ export async function persistLuminaPatch(
   scope: SettingsHandle | undefined,
   partial: Partial<LuminaConfig>,
 ): Promise<void> {
+  if (!scope?.set) {
+    console.warn('[lumina-tarot] settings form unavailable; change not saved')
+    return
+  }
+
+  const previous = current
+  const previousEcho = echo
   patchLuminaConfig(partial)
   writesInFlight += 1
+  let accepted = true
   try {
     for (const [field, value] of Object.entries(partial)) {
       try {
-        await scope?.set?.(field, value)
+        const result = await scope.set(field, value)
+        if (result !== true) accepted = false
       } catch (error) {
+        accepted = false
         console.warn('[lumina-tarot] settings write skipped', field, error)
       }
     }
   } finally {
     writesInFlight -= 1
     if (writesInFlight === 0) {
-      const snap = scope?.getSnapshot?.()
-      hydrateLuminaConfig({ ...snap?.value, ...partial })
+      const snap = scope.getSnapshot?.()
+      if (snap?.value) {
+        pruneEcho(snap.value)
+        hydrateLuminaConfig(snap.value)
+      } else if (!accepted) {
+        echo = previousEcho
+        current = previous
+        emit()
+      }
     }
   }
 }
 
 export async function unsetLuminaField(scope: SettingsHandle | undefined, field: keyof LuminaConfig): Promise<void> {
+  if (!scope?.unset) {
+    console.warn('[lumina-tarot] settings form unavailable; reset not saved')
+    return
+  }
   try {
-    await scope?.unset?.(String(field))
+    const result = await scope.unset(String(field))
+    if (result !== true) {
+      const snap = scope.getSnapshot?.()
+      if (snap?.value) hydrateLuminaConfig(snap.value)
+    }
   } catch (error) {
     console.warn('[lumina-tarot] settings unset skipped', field, error)
+    const snap = scope.getSnapshot?.()
+    if (snap?.value) hydrateLuminaConfig(snap.value)
   }
 }

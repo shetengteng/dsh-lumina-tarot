@@ -1,27 +1,48 @@
-import { DEFAULT_CONFIG, installLuminaSettings } from './settings-schema.ts'
+import {
+  Config,
+  DEFAULT_CONFIG,
+  resolveLuminaConfig,
+} from './settings-schema.ts'
 import { registerLuminaCommands, type LuminaState } from './commands.ts'
 import { createHistory } from './history.ts'
 import { installDeckStatic } from './host/deck-static.ts'
 import { registerLuminaPrompt, registerLuminaSkill } from './skill.ts'
 import { registerLuminaTools } from './tools.ts'
 
+export { Config }
 export const name = 'dsh-lumina-tarot'
 
-export function apply(ctx: {
+type SettingsForms = {
+  configure: (presentation: { auto?: boolean }, owner?: unknown) => () => void
+}
+
+type HostContext = {
+  fiber?: unknown
   logger?: { info: (msg: string) => void }
-  inject: (deps: string[], callback: (scoped: unknown) => void) => void
-}): void {
+  on?: (event: string, listener: () => void) => () => boolean
+  inject: (deps: string[], callback: (scoped: {
+    settings: SettingsForms
+    effect: (setup: () => (() => void) | void) => unknown
+  }) => void) => void
+}
+
+export function apply(ctx: HostContext, config?: Record<string, unknown>): void {
   const state: LuminaState = {
-    current: { ...DEFAULT_CONFIG },
+    current: resolveLuminaConfig(config),
     lastReading: null,
     history: createHistory(),
   }
 
+  const updateConfig = () => {
+    state.current = resolveLuminaConfig(config)
+  }
+  ctx.on?.('loader/volatile-update', updateConfig)
+
   console.log('[lumina-tarot] host loaded')
   ctx.logger?.info('[lumina-tarot] host loaded')
 
-  void installLuminaSettings(ctx, state).catch((error) => {
-    console.warn('[lumina-tarot] settings not mounted', error)
+  ctx.inject(['settings'], (scoped) => {
+    scoped.effect(() => scoped.settings.configure({ auto: false }, ctx.fiber))
   })
 
   ctx.inject(['commands'], (scoped) => {

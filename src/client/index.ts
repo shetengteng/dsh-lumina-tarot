@@ -13,7 +13,11 @@ import { createLuminaOverlay } from './overlay/LuminaOverlay.tsx'
 import { bindSessionActions, type SessionsHandle, type WorkspacesHandle } from './overlay/session-source.ts'
 
 export const name = 'dsh-lumina-tarot'
-export const inject = ['slots', 'remote', 'remote.commands', 'settingsScope', 'locale', 'sessions', 'workspaces']
+export const inject = ['slots', 'remote', 'remote.commands', 'configForms', 'locale', 'sessions', 'workspaces']
+
+type ConfigForms = {
+  get: (entryId: string) => SettingsHandle
+}
 
 export function apply(ctx: {
   slots: {
@@ -21,7 +25,7 @@ export function apply(ctx: {
     register: (meta: Record<string, unknown>, component: unknown) => unknown
   }
   effect?: (setup: () => (() => void) | void) => void
-  settingsScope?: { bind: (spec: { namespace: string }) => SettingsHandle }
+  configForms?: ConfigForms
   locale?: LocaleHandle
   remote?: { commands?: { execute: (sessionId: string, line: string, images: readonly unknown[], signal?: AbortSignal) => Promise<unknown> } }
   sessions?: SessionsHandle
@@ -30,8 +34,12 @@ export function apply(ctx: {
   ensureStyles()
   console.log('[lumina-tarot] client loaded')
 
-  const scope = ctx.settingsScope?.bind?.({ namespace: 'lumina-tarot' }) as SettingsHandle | undefined
-  bindLuminaScope(scope)
+  const scope = ctx.configForms?.get?.('lumina-tarot')
+  if (typeof ctx.effect === 'function') {
+    ctx.effect(() => bindLuminaScope(scope))
+  } else {
+    bindLuminaScope(scope)
+  }
 
   const sectionLabel = () => t(resolveUiLocale(luminaConfig(), ctx.locale?.getSnapshot?.()?.active), 'pageTitle')
   if (typeof ctx.effect === 'function') {

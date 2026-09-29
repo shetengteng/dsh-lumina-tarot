@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { IconChevronDownOutline14 } from '@deepseek-ai/dsh-client-ui-primitives'
+import { IconChevronDownOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
 import type { LocaleId } from '../../domain/types.ts'
 import { spreadLabel } from '../i18n.ts'
 import { guideCopy, type GuideCopy } from './guide-copy.ts'
@@ -22,7 +22,7 @@ function GuideToggle(props: { open: boolean; label: string; onToggle: () => void
       aria-label={props.label}
       onClick={props.onToggle}
     >
-      <IconChevronDownOutline14 className={props.open ? 'lumina-set-guide-chevron is-open' : 'lumina-set-guide-chevron'} />
+      <IconChevronDownOutlineRegular className={props.open ? 'lumina-set-guide-chevron is-open' : 'lumina-set-guide-chevron'} />
     </button>
   )
 }
