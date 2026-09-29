@@ -7,21 +7,30 @@ export { DEFAULT_CONFIG }
 
 export const LUMINA_NS = 'lumina-tarot'
 
+type SettingsScope = {
+  get: () => LuminaConfig
+  watch: (listener: () => void) => () => void
+}
+
+type SettingsService = {
+  register: (
+    ns: string,
+    schema: unknown,
+    options: { base: LuminaConfig; applies?: 'live' | 'restart' },
+  ) => SettingsScope
+}
+
 export async function installLuminaSettings(
   ctx: { inject: Function },
   live: { current: LuminaConfig },
 ): Promise<boolean> {
-  const settings = await importDsh<{
-    installSettingsSection: Function
-    settingsNamespace: (value: string) => unknown
-  }>('@deepseek-ai/dsh-settings', 'lib/index.js')
   const schemastery = await importDsh<{ default: { object: Function; union: Function; boolean: Function; number: Function } }>(
     '@deepseek-ai/schemastery',
     'lib/index.mjs',
   )
   const z = schemastery?.default
-  if (!settings?.installSettingsSection || !settings.settingsNamespace || !z) {
-    console.warn('[lumina-tarot] settings packages not found; using composition defaults')
+  if (!z) {
+    console.warn('[lumina-tarot] schemastery not found; using composition defaults')
     return false
   }
 
@@ -42,14 +51,22 @@ export async function installLuminaSettings(
     historyLimit: z.number().step(1).min(1).max(500).default(100),
   })
 
-  let source = () => live.current
-  settings.installSettingsSection(ctx, settings.settingsNamespace(LUMINA_NS), Config, DEFAULT_CONFIG, {
-    setSource: (current: () => LuminaConfig) => {
-      source = current
-    },
-    onChange: () => {
+  ctx.inject(['settings'], (scoped: { settings: SettingsService; effect: (setup: () => () => void) => void }) => {
+    if (typeof scoped.settings?.register !== 'function') {
+      console.warn('[lumina-tarot] settings.register missing; using composition defaults')
+      return
+    }
+    const scope = scoped.settings.register(LUMINA_NS, Config, { base: DEFAULT_CONFIG, applies: 'live' })
+    let source = () => scope.get()
+    const apply = () => {
       live.current = { ...DEFAULT_CONFIG, ...source() }
-    },
+    }
+    scoped.effect(() => () => {
+      source = () => DEFAULT_CONFIG
+      apply()
+    })
+    apply()
+    scope.watch(apply)
   })
   return true
 }

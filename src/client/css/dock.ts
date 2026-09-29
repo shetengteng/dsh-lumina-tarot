@@ -39,6 +39,8 @@ export const DOCK_CSS = `
 }
 .dsh-lumina-float {
   position: fixed;
+  right: auto;
+  bottom: auto;
   z-index: 2147483000;
   width: 48px;
   height: 83px;

@@ -21,7 +21,7 @@ export function FloatCard(props: {
       ref={props.cardRef}
       className="dsh-lumina-float"
       title={props.title}
-      style={{ left: props.left, top: props.top }}
+      style={{ left: props.left, top: props.top, right: 'auto', bottom: 'auto' }}
       onPointerDown={props.onPointerDown}
       onPointerMove={props.onPointerMove}
       onPointerUp={props.onPointerUp}

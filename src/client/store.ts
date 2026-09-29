@@ -3,9 +3,18 @@ import { DEFAULT_CONFIG, mergeConfig, type LuminaConfig } from './defaults.ts'
 let current: LuminaConfig = { ...DEFAULT_CONFIG }
 const listeners = new Set<() => void>()
 let writesInFlight = 0
+let echo: Partial<LuminaConfig> = {}
 
 function emit(): void {
   for (const listener of listeners) listener()
+}
+
+function pruneEcho(snap: Partial<LuminaConfig>): void {
+  for (const key of Object.keys(echo) as Array<keyof LuminaConfig>) {
+    const local = echo[key]
+    const remote = snap[key]
+    if (remote === local || (remote === undefined && local === DEFAULT_CONFIG[key])) delete echo[key]
+  }
 }
 
 export function luminaConfig(): LuminaConfig {
@@ -20,11 +29,12 @@ export function watchLuminaConfig(listener: () => void): () => void {
 }
 
 export function hydrateLuminaConfig(value: Partial<LuminaConfig> | undefined): void {
-  current = mergeConfig(value)
+  current = mergeConfig({ ...value, ...echo })
   emit()
 }
 
 export function patchLuminaConfig(partial: Partial<LuminaConfig>): void {
+  echo = { ...echo, ...partial }
   current = { ...current, ...partial }
   emit()
 }
@@ -45,7 +55,9 @@ export function bindLuminaScope(scope: SettingsHandle | undefined): () => void {
   const sync = () => {
     if (writesInFlight > 0) return
     const snap = scope.getSnapshot()
-    if (snap?.value) hydrateLuminaConfig(snap.value)
+    if (!snap?.value) return
+    pruneEcho(snap.value)
+    hydrateLuminaConfig(snap.value)
   }
   sync()
   return scope.subscribe(sync)

@@ -1,6 +1,6 @@
 import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from 'react'
 import { CARD_H, CARD_W, DRAG_THRESHOLD } from '../defaults.ts'
-import { patchLuminaConfig, persistLuminaField, type SettingsHandle } from '../store.ts'
+import { patchLuminaConfig, persistLuminaPatch, type SettingsHandle } from '../store.ts'
 import { pxToPos } from './geometry.ts'
 import type { SpreadId } from '../../domain/types.ts'
 
@@ -70,8 +70,7 @@ export function createFloatPointer(opts: {
     const next = pxToPos(drag.left, drag.top)
     opts.dragRef.current = null
     if (wasDrag) {
-      patchLuminaConfig(next)
-      void persistLuminaField(opts.scope, 'floatX', next.floatX).then(() => persistLuminaField(opts.scope, 'floatY', next.floatY))
+      void persistLuminaPatch(opts.scope, next)
       return
     }
     if (opts.drawingRef.current || opts.getAsk()) return
