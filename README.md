@@ -78,7 +78,7 @@ dsh --profile web --dump-config   # 应该能看到 # == dsh-lumina-tarot 这一
 dsh web
 ```
 
-想锁定版本就写 `dsh-lumina-tarot@0.1.2`。
+想锁定版本就写 `dsh-lumina-tarot@0.1.3`。
 
 ## 命令速查
 

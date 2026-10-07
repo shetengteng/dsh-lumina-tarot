@@ -78,7 +78,7 @@ dsh --profile web --dump-config   # you should see a # == dsh-lumina-tarot layer
 dsh web
 ```
 
-Pin a version with `dsh-lumina-tarot@0.1.2`.
+Pin a version with `dsh-lumina-tarot@0.1.3`.
 
 ## Command cheat sheet
 
