@@ -1,6 +1,6 @@
 {
   "name": "dsh-lumina-tarot",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Lumina Tarot for DeepSeek Harness: a draggable card-back overlay, Host draw tools, and in-conversation readings.",
   "type": "module",
   "main": "./lib/index.js",
@@ -39,6 +39,15 @@
     "lumina"
   ],
   "license": "MIT",
+  "author": "shetengteng <work_stt@163.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shetengteng/dsh-lumina-tarot.git"
+  },
+  "homepage": "https://github.com/shetengteng/dsh-lumina-tarot#readme",
+  "bugs": {
+    "url": "https://github.com/shetengteng/dsh-lumina-tarot/issues"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
@@ -56,16 +65,14 @@
       ]
     }
   },
-  "dependencies": {
-    "esbuild": "^0.25.0"
-  },
   "devDependencies": {
+    "esbuild": "^0.25.0",
     "@types/react": "^18.3.0",
     "playwright": "^1.62.1"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "~4.0.4",
-    "@deepseek-ai/dsh-settings": "0.1.7-rc.2",
+    "@deepseek-ai/dsh-settings": "0.2.0-rc.2",
     "@deepseek-ai/schemastery": "~3.18.4"
   },
   "peerDependenciesMeta": {

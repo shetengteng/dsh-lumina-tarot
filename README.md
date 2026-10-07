@@ -2,104 +2,156 @@
 
 [English](README.en.md)
 
-DeepSeek Harness Web 上的塔罗占卜插件。壳右下角浮着一张可拖动的**牌背**：点一下就抽，抽完可以让当前对话里的模型帮你解读。你也可以直接跟 AI 说「帮我看看最近的事业运」，它会自己调工具抽牌，不会瞎编牌面。
+给 DeepSeek Harness 装一副塔罗牌。
 
-牌库是完整的 78 张（22 大阿 + 56 小阿），牌阵、关键词、正逆位含义都带中英双语。
+装好之后，聊天界面右下角会出现一张可以拖动的**牌背**。点一下就开始洗牌抽牌，抽完可以让 AI 帮你解读——或者干脆跟它说「帮我看看最近的事业运」，它会自己去抽，不会凭空编一张牌出来。
 
-## 怎么用
+牌是完整的 78 张（22 张大阿卡那 + 56 张小阿卡那），正逆位含义、关键词都带中英双语。
 
-装好、打开 `dsh web` 之后：
+---
 
-- **单击**悬浮牌背：按当前默认牌阵立刻抽牌。会先看到一叠牌在洗，洗完翻开。
-- **拖动**：只改位置，松手后记住，刷新还在。拖过的这次不会抽牌。
-- **右击**：打开贴牌的扇形快捷菜单（四种牌阵、上次结果、查看历史）。不会弹出浏览器自带的右键菜单。卡面、今日一牌、重置位置在设置页或 slash / 对话工具里。
-- 结果出来后点 **「让 AI 解读」**：当前会话会基于**已经抽好的牌**写解读，模型改不了牌。
-- 不想用悬浮牌：关掉设置里的「显示悬浮牌背」，slash 命令和对话工具照样能用。
+## 怎么玩
 
-四种牌阵：单张指引、三牌时间线、十字、凯尔特精简。默认是三牌。
+装好并启动 Harness 之后：
 
-完整偏好在 DeepSeek Harness **设置 → Lumina 塔罗**：主题、语言、卡面、牌背、动画强弱、默认牌阵、逆位率、导出 / 清空历史。主题只染插件自己的牌和面板，不会去改壳的外观。
+| 动作 | 会发生什么 |
+|------|-----------|
+| **单击**牌背 | 按当前牌阵抽一次牌。先看到一叠牌在洗，洗完了翻开 |
+| **拖动**牌背 | 只是换个位置，松手后记住，下次打开还在。拖动的这次不会抽牌 |
+| **右键**牌背 | 弹出贴着牌的扇形菜单：换牌阵、看上次结果、翻历史 |
+
+抽完牌之后点 **「让 AI 解读」**，当前对话里的模型就会按你已经抽到的牌写解读——**牌是抽好的，模型改不了**。
+
+不想看到浮动牌背？在设置里关掉「显示悬浮牌背」就行，对话里照样能抽牌。
+
+## 四种牌阵
+
+| 牌阵 | 适合 |
+|------|------|
+| **单张指引** | 想要一句直接的回应 |
+| **三牌时间线** | 过去 / 现在 / 未来（默认） |
+| **十字** | 五张，看清一件事的处境与走向 |
+| **凯尔特精简** | 十张，铺开一个复杂局面 |
+
+## 在设置里调什么
+
+打开 **DeepSeek Harness 设置 → Lumina 塔罗**：
+
+主题配色、界面语言、卡面画风（现代极简 / 韦特 / 水彩）、卡背样式、动画强弱、默认牌阵、逆位概率，以及导出和清空历史记录。
+
+主题只会给插件自己的牌和面板上色，**不会去改 Harness 界面的外观**。
+
+## 跟 AI 说话就行
+
+不用记命令，直接用平常的话说：
+
+- 「帮我占卜」「抽张牌」
+- 「今日一牌」「今天运势怎么样」
+- 「愚者这张牌什么意思」
+
+模型会调用对应工具去做，而不是自己编牌面。也可以敲斜杠命令：`/lumina draw`、`/lumina today`、`/lumina interpret`、`/lumina history`。
+
+---
 
 ## 安装
 
-本机要有 `dsh` CLI。装一次就够：Host（抽牌、工具、设置）和界面是**同一个包**，不要再跑第二条安装命令。
+需要先有 `dsh` CLI。**桌面版和网页版装的是同一个包，装一次就够。**
 
-在仓库根目录：
+### 桌面版 App
 
-```sh
-dsh plugin --profile web add .
-```
+1. 打开 App 的 **插件 → 添加插件**
+2. 填包名 `dsh-lumina-tarot`，点安装
+3. **重启 App**
 
-从 GitHub 装：
+> App 有自己的配置目录，命令行管不了它（`dsh plugin --profile desktop …` 会被拒绝），请从上面的界面入口安装。
 
-```sh
-dsh plugin --profile web add github:shetengteng/dsh-lumina-tarot
-```
-
-Git 装的是源码，靠 `prepare` 打出 `lib/`。pnpm 10 默认会拦这个脚本，第一次失败的话，按 CLI 提示把包名写进该 profile 的 `pnpm-workspace.yaml` 再重跑：
-
-```yaml
-allowBuilds:
-  dsh-lumina-tarot: true
-```
-
-核对有没有装上：
+### 网页版（`dsh web`）
 
 ```sh
-dsh --profile web --dump-config
+dsh plugin --profile web add dsh-lumina-tarot
+```
+
+装完确认一下：
+
+```sh
+dsh --profile web --dump-config   # 应该能看到 # == dsh-lumina-tarot 这一层
 dsh web
 ```
 
-`dump-config` 里应出现 `# == dsh-lumina-tarot`。没有界面的 headless profile 也能装，模型照样能抽牌，只是没有悬浮牌背。
+想锁定版本就写 `dsh-lumina-tarot@0.1.2`。
+
+## 命令速查
+
+四条命令，日常只会用到前两条。命令里的 `web` 是 profile 名（可以理解成"配置档"），如果你用的是别的 profile，把它换掉即可。
+
+| 命令 | 做什么 |
+|------|--------|
+| `dsh plugin --profile web add dsh-lumina-tarot` | **安装**。从 npm 拉取并装进 `web` 这个 profile |
+| `dsh plugin --profile web update dsh-lumina-tarot` | **更新**到最新版（钉了版本号的不动） |
+| `dsh plugin --profile web remove dsh-lumina-tarot` | **卸载**。偏好和历史会保留 |
+| `dsh --profile web --dump-config` | **检查**装上了没。看到 `# == dsh-lumina-tarot` 就是成功了 |
+
+几点说明：
+
+- **装完要重启**。不管是安装还是更新，正在跑的 Harness 用的还是启动时那份代码，必须重启才生效。
+- **桌面版 App 没有对应命令**。App 的配置由它自己管，命令行动不了，只能从 **插件 → 添加插件** 走界面（见上一节）。
+- **只需要装一次**。抽牌能力（Host）和界面（Client）在同一个包里，不用再跑第二条命令。
+- **headless 环境也能装**。没有界面的 profile 里模型照样能抽牌，只是看不到浮动牌背。
 
 ## 更新
 
-DSH **不会**自动检查或安装插件新版本。生命周期就是 `dsh plugin` 转发给当前 profile 里的 pnpm：`add` / `update` / `remove`。磁盘改完后，正在跑的进程仍用这次启动时装上的那份代码，必须重启 `dsh web`。
-
-GitHub 安装后要拉默认分支最新代码：
+Harness **不会**自动检查插件更新，要自己动手：
 
 ```sh
 dsh plugin --profile web update dsh-lumina-tarot
 dsh web
 ```
 
-钉了 `#<commit>` 的安装不会跟着默认分支走；要换提交就再 `add` 一次并写上新的 commit。本地 `add .` 是开发链接，不走 `update`：改完源码后 `pnpm build`，再重启 `dsh web`、刷新浏览器。
+⚠️ 插件更新后**必须重启** Harness 才生效——正在运行的进程用的还是启动时那份代码。
 
 ## 卸载
-
-两面一起卸：
 
 ```sh
 dsh plugin --profile web remove dsh-lumina-tarot
 ```
 
-卸载不清你的偏好和历史。下次再装会读回来。要连记录一起删，先在设置里「清空全部历史」。
+卸载**不会**清掉你的偏好设置和历史记录，重新装回来还在。想彻底清干净，先在设置里「清空全部历史」。
 
-## 对话里能做什么
+---
 
-跟模型说话即可，例如「帮我占卜」「今日一牌」。它会走这些工具，而不是自己编一张愚者：
+## 给开发者
 
-| 工具 | 干什么 |
-|------|--------|
-| `lumina_draw` | 按牌阵抽牌 |
-| `lumina_today` | 今日一牌（同一天结果稳定） |
-| `lumina_list_spreads` | 列出四种牌阵 |
-| `lumina_lookup_card` | 按 id / 中英文名查一张牌 |
-
-也可以自己敲 slash 命令：`/lumina draw`、`/lumina today`、`/lumina interpret`、`/lumina history`。
-
-## 开发
+从源码构建：
 
 ```sh
 pnpm install
-pnpm build    # 同时打出 Host ESM 和 Client 包
-pnpm e2e      # 真实 dsh web 端到端（先 dsh web；对照 design/2026-08-27-01-端到端测试场景.md）
+pnpm build     # Host 与 Client 一起打包
+pnpm e2e       # 真实 dsh web 端到端测试（先启动 dsh web）
 ```
 
-`prepare` 和 `build` 是同一条构建。改完 Client 后，已 link 进 profile 的包通常要重启 `dsh web`，再刷新浏览器。
+也可以直接从 GitHub 安装（会现场跑 `prepare` 构建，比装 npm 版慢）：
 
-产品行为见 `design/2026-08-19-01-系统设计.md`。这不是独立网站，也没有 `/tarot` 路由——它住在 Harness 的对话壳里。
+```sh
+dsh plugin --profile web add github:shetengteng/dsh-lumina-tarot
+```
 
-## License
+pnpm 10+ 默认会拦构建脚本，第一次失败的话，按 CLI 提示把包名写进该 profile 的 `pnpm-workspace.yaml` 再重跑：
 
-源码 MIT，见 `LICENSE`。牌面图源见 `NOTICE`：韦特为 Public Domain；水彩 Aquatic Tarot 为 CC BY-NC-SA 3.0，仅限个人非商业用途。
+```yaml
+allowBuilds:
+  dsh-lumina-tarot: true
+```
+
+本地改代码时，在仓库根目录做链接安装：
+
+```sh
+dsh plugin --profile web add .
+```
+
+改完 Client 代码后需要重启 `dsh web` 并刷新浏览器。
+
+产品行为说明见 [design/2026-08-19-01-系统设计.md](design/2026-08-19-01-系统设计.md)。这不是一个独立网站，没有 `/tarot` 路由——它就住在 Harness 的对话界面里。
+
+## 许可
+
+源码 MIT，见 [LICENSE](LICENSE)。牌面图源见 [NOTICE](NOTICE)：韦特牌为公有领域（Public Domain）；水彩 Aquatic Tarot 为 CC BY-NC-SA 3.0，**仅限个人非商业用途**。

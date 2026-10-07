@@ -4,4 +4,4 @@ node_modules/
 src/client/*.inner.js
 scripts/e2e/out/
 output/
-
+.npmrc

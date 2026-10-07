@@ -1,2 +1,5 @@
+# esbuild's install script fetches its platform binary; the build needs it.
+# A non-boolean value here is treated as "not approved" and fails pnpm's
+# dependency check, so this must stay a real boolean.
 allowBuilds:
-  esbuild: set this to true or false
+  esbuild: true

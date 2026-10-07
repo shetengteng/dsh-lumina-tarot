@@ -19,15 +19,22 @@ type PromptResult = {
   error?: { message?: string; code?: string }
 }
 
+/** Session row as the 0.2.x catalog exposes it; `retainedBy` carries main-view ownership. */
+export type SessionRow = {
+  blank?: boolean
+  retainedBy?: Readonly<Partial<Record<string, number>>>
+}
+
+export type SessionListSnapshot = {
+  ids?: readonly string[]
+  byId?: Record<string, SessionRow>
+  phase?: 'pending' | 'ready'
+}
+
 export type SessionsHandle = {
-  open: (id: string) => void
-  create?: (opts?: { workspaceId?: string; cwd?: string }) => Promise<string>
-  list?: {
-    getSnapshot?: () => {
-      current?: string
-      byId?: Record<string, { blank?: boolean }>
-    }
-  }
+  open?: (id: string) => void
+  create?: (opts?: { workspaceId?: string; cwd?: string; sessionId?: string }) => Promise<string>
+  list?: { getSnapshot?: () => SessionListSnapshot }
   binding?: (id: string) => { session?: { prompt?: (content: Array<{ type: 'text'; text: string }>, mode: 'queue' | 'steer') => Promise<PromptResult> } } | undefined
 }
 
@@ -46,7 +53,34 @@ export type SessionActions = {
   connectWorkspace: (workspaceId: string) => Promise<string>
   openSession: (id: string) => void
   createSession?: (opts?: { workspaceId?: string }) => Promise<string>
-  listedCurrent: () => string | undefined
+  /** Current main-view session, or undefined when none is open (or no catalog exists). */
+  listedCurrent: (preferred?: string) => string | undefined
+  /** False while the catalog has not delivered rows yet, so absence proves nothing. */
+  catalogReady?: () => boolean
+}
+
+/**
+ * Pick the Session currently shown in the main view.
+ *
+ * The catalog exposes no `current` field. Navigation belongs to view owners, and
+ * the shell's own `UiSession.isMain` decides "main" purely from the row's main-view
+ * retain count, so that is the only predicate to share:
+ *   `(byId[id].retainedBy.mainView ?? 0) > 0`
+ *
+ * `ids` gives the host order; without it, fall back to insertion order. A row whose
+ * own main-view count dropped is skipped, so a stale preference cannot win.
+ */
+export function currentFromList(
+  list: SessionListSnapshot | undefined,
+  preferred?: string,
+): string | undefined {
+  const byId = list?.byId
+  if (!byId) return undefined
+  const owned = (id: string | undefined) =>
+    id !== undefined && (byId[id]?.retainedBy?.mainView ?? 0) > 0
+  if (owned(preferred)) return preferred
+  const order = list?.ids?.length ? list.ids : Object.keys(byId)
+  return order.find(owned)
 }
 
 export function bindSessionActions(ctx: {
@@ -69,28 +103,31 @@ export function bindSessionActions(ctx: {
       if (typeof fn !== 'function') throw new Error('need-session')
       return fn.call(ctx.sessions, opts)
     },
-    listedCurrent: () => {
+    listedCurrent: (preferred?: string) => {
       try {
-        return ctx.sessions?.list?.getSnapshot?.()?.current
+        return currentFromList(ctx.sessions?.list?.getSnapshot?.(), preferred)
       } catch {
         return undefined
+      }
+    },
+    catalogReady: () => {
+      try {
+        const list = ctx.sessions?.list?.getSnapshot?.()
+        if (!list) return false
+        return list.phase === 'ready' && Object.keys(list.byId ?? {}).length > 0
+      } catch {
+        return false
       }
     },
   }
 }
 
 export function readSessionId(props: {
-  useCurrentSessionId?: (sel: (id: string | undefined) => unknown) => unknown
-  useSessions?: (sel: (s: { current?: string }) => unknown) => unknown
+  useSessions?: (sel: (s: SessionListSnapshot) => unknown) => unknown
 }): string | undefined {
   try {
-    if (typeof props.useCurrentSessionId === 'function') {
-      return props.useCurrentSessionId((id) => id) as string | undefined
-    }
-  } catch { /* overlay is root-scoped; bound hook may be absent */ }
-  try {
     if (typeof props.useSessions === 'function') {
-      return props.useSessions((s) => s?.current) as string | undefined
+      return props.useSessions((s) => currentFromList(s)) as string | undefined
     }
   } catch { /* standing seat may throw outside session scope */ }
   return undefined
@@ -98,13 +135,13 @@ export function readSessionId(props: {
 
 export function readRecentWorkspaceId(props: {
   useWorkspaces?: (sel: (s: {
-    recentWorkspaceId?: string
     items?: readonly { workspaceId: string }[]
   }) => unknown) => unknown
 }): string | undefined {
   try {
     if (typeof props.useWorkspaces === 'function') {
-      return props.useWorkspaces((s) => s?.recentWorkspaceId ?? s?.items?.[0]?.workspaceId) as string | undefined
+      // 0.2.x dropped `recentWorkspaceId`; the first row is the most recent workspace.
+      return props.useWorkspaces((s) => s?.items?.[0]?.workspaceId) as string | undefined
     }
   } catch { return undefined }
 }
@@ -117,13 +154,38 @@ function settle(): Promise<void> {
 
 export { settle }
 
+/**
+ * The workspace store loads asynchronously, so `connectWorkspace` can reject with
+ * "unknown workspace <id>" while `items` is still empty. That is a race, not a
+ * verdict — retry a few times before giving up.
+ */
+async function connectWorkspaceWithRetry(
+  recentWorkspaceId: string,
+  actions: SessionActions,
+): Promise<string> {
+  let lastError: unknown
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    if (attempt > 0) await settle()
+    try {
+      const id = await actions.connectWorkspace(recentWorkspaceId)
+      if (id) return id
+    } catch (error) {
+      lastError = error
+    }
+  }
+  throw lastError instanceof Error ? lastError : new Error('need-session')
+}
+
 async function openNewSession(
   recentWorkspaceId: string | undefined,
   actions: SessionActions,
 ): Promise<string> {
   let id: string | undefined
   if (recentWorkspaceId) {
-    id = await actions.connectWorkspace(recentWorkspaceId)
+    // A known workspace is the user's own context, so prefer it. If it never
+    // becomes connectable the list itself is unusable, and letting the error
+    // surface is better than silently opening a session somewhere else.
+    id = await connectWorkspaceWithRetry(recentWorkspaceId, actions)
   } else if (typeof actions.createSession === 'function') {
     id = await actions.createSession({})
   }
@@ -134,6 +196,13 @@ async function openNewSession(
   return id
 }
 
+/**
+ * Resolve a session the Host will accept a command against.
+ *
+ * Only a session the catalog still reports as main-view owned is safe to reuse;
+ * the catalog is the sole authority on what the user is currently looking at.
+ * Creating a session is the last resort, and it does move the shell's main view.
+ */
 export async function ensureSession(
   current: string | undefined,
   recentWorkspaceId: string | undefined,
@@ -143,13 +212,16 @@ export async function ensureSession(
     mirrorSession(current)
     return current
   }
-  const listed = actions.listedCurrent?.()
+  // Prefer the session we last used, but only while the catalog still agrees.
+  const remembered = mirroredSession()
+  const listed = actions.listedCurrent?.(remembered)
   if (listed) {
     mirrorSession(listed)
     return listed
   }
-  const remembered = mirroredSession()
-  if (remembered) return remembered
+  // Absence only means "none is open" once the catalog has actually delivered
+  // rows. Before that, a remembered id beats forcing a new session into view.
+  if (remembered && actions.catalogReady?.() === false) return remembered
   if (!pendingEnsure) {
     pendingEnsure = openNewSession(recentWorkspaceId, actions).finally(() => {
       pendingEnsure = undefined

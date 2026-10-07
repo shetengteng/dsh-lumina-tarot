@@ -10,7 +10,7 @@ import { installLuminaNavIcon } from './nav-icon.ts'
 import { LuminaDrawView } from './toolview.tsx'
 import { LuminaCommandView } from './commandview.tsx'
 import { createLuminaOverlay } from './overlay/LuminaOverlay.tsx'
-import { bindSessionActions, type SessionsHandle, type WorkspacesHandle } from './overlay/session-source.ts'
+import type { SessionsHandle, WorkspacesHandle } from './overlay/session-source.ts'
 
 export const name = 'dsh-lumina-tarot'
 export const inject = ['slots', 'remote', 'remote.commands', 'configForms', 'locale', 'sessions', 'workspaces']
@@ -48,13 +48,20 @@ export function apply(ctx: {
     installLuminaNavIcon(sectionLabel, ctx.locale)
   }
 
-  const sessionActions = bindSessionActions(ctx)
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({
     name: 'shell.overlay',
     id: 'dsh-lumina-tarot',
     order: 1000,
     registrant: 'dsh-lumina-tarot',
-    inject: () => sessionActions,
+    // The renderer spreads the seat's standard kit first and this inject after it,
+    // so returning anything that shadows a standard prop silently strips the seat
+    // API from the component. `bindSessionActions(ctx)` returns exactly the session
+    // actions the kit already provides (`connectWorkspace` / `openSession` /
+    // `createSession` / `listedCurrent`), so injecting it only overwrote the seat's
+    // own and left the overlay with no way to read the current session. Keep this
+    // empty; the overlay reads the actions straight off its props, and falls back
+    // to `bindSessionActions` when a deployment hands it none.
+    inject: () => ({}),
   }, createLuminaOverlay(ctx, scope)))
 
   ctx.slots.inject('tool.call.toolview', () => {

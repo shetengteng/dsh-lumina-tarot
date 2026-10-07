@@ -29,6 +29,7 @@ import {
   readRecentWorkspaceId,
   readSessionId,
   type SessionActions,
+  type SessionListSnapshot,
   type SessionsHandle,
   type WorkspacesHandle,
 } from './session-source.ts'
@@ -41,10 +42,8 @@ export type OverlayHost = {
 }
 
 type OverlayProps = SessionActions & {
-  useCurrentSessionId?: (sel: (id: string | undefined) => unknown) => unknown
-  useSessions?: (sel: (s: { current?: string }) => unknown) => unknown
+  useSessions?: (sel: (s: SessionListSnapshot) => unknown) => unknown
   useWorkspaces?: (sel: (s: {
-    recentWorkspaceId?: string
     items?: readonly { workspaceId: string }[]
   }) => unknown) => unknown
 }
