@@ -8,7 +8,7 @@ export { DEFAULT_CONFIG }
 export const LUMINA_NS = 'lumina-tarot'
 
 /**
- * Live settings exposed through DSH's 0.1.7 configuration-form projection.
+ * Live settings exposed through DSH's 0.2.x configuration-form projection.
  * Every field is volatile so edits update the running Host fiber without a restart.
  */
 export const Config = z.object({

@@ -14,11 +14,11 @@ The deck is a full 78 cards (22 Major Arcana + 56 Minor), with bilingual names, 
 
 Once installed and running:
 
-| Action | What happens |
-|--------|--------------|
-| **Click** the card back | Draws with your current spread. You'll see a shuffle animation, then the cards flip over |
-| **Drag** the card back | Just moves it. The position is remembered for next time — a drag never counts as a draw |
-| **Right-click** the card back | Opens a fan menu on the card: switch spreads, see your last result, browse history |
+| Action                        | What happens                                                                             |
+| ----------------------------- | ---------------------------------------------------------------------------------------- |
+| **Click** the card back       | Draws with your current spread. You'll see a shuffle animation, then the cards flip over |
+| **Drag** the card back        | Just moves it. The position is remembered for next time — a drag never counts as a draw  |
+| **Right-click** the card back | Opens a fan menu on the card: switch spreads, see your last result, browse history       |
 
 After a draw, hit **"Ask AI to interpret"** and the model in your current chat reads the cards you already drew — **the cards are locked in; the model can't change them**.
 
@@ -26,12 +26,12 @@ Don't want the floating card? Turn off "show floating card" in settings. Drawing
 
 ## Four spreads
 
-| Spread | Good for |
-|--------|----------|
-| **Single card** | One clear answer |
-| **Three-card timeline** | Past / present / future (the default) |
-| **Cross** | Five cards — the situation and where it's heading |
-| **Lite Celtic cross** | Ten cards — a complicated picture, laid out in full |
+| Spread                  | Good for                                            |
+| ----------------------- | --------------------------------------------------- |
+| **Single card**         | One clear answer                                    |
+| **Three-card timeline** | Past / present / future (the default)               |
+| **Cross**               | Five cards — the situation and where it's heading   |
+| **Lite Celtic cross**   | Ten cards — a complicated picture, laid out in full |
 
 ## What you can tune
 
@@ -78,18 +78,18 @@ dsh --profile web --dump-config   # you should see a # == dsh-lumina-tarot layer
 dsh web
 ```
 
-Pin a version with `dsh-lumina-tarot@0.1.3`.
+Once the compatibility fix is published, pin it with `dsh-lumina-tarot@0.1.4`. The current registry `0.1.3` is not compatible with DSH `0.2.1-rc.2`.
 
 ## Command cheat sheet
 
 Four commands — day to day you'll only need the first two. `web` here is the profile name (think of it as a config slot); swap it if you use a different profile.
 
-| Command | What it does |
-|---------|--------------|
-| `dsh plugin --profile web add dsh-lumina-tarot` | **Install.** Pulls the package from npm into the `web` profile |
-| `dsh plugin --profile web update dsh-lumina-tarot` | **Update** to the latest release (pinned versions stay put) |
-| `dsh plugin --profile web remove dsh-lumina-tarot` | **Uninstall.** Preferences and history are kept |
-| `dsh --profile web --dump-config` | **Verify** the install. Look for `# == dsh-lumina-tarot` |
+| Command                                            | What it does                                                   |
+| -------------------------------------------------- | -------------------------------------------------------------- |
+| `dsh plugin --profile web add dsh-lumina-tarot`    | **Install.** Pulls the package from npm into the `web` profile |
+| `dsh plugin --profile web update dsh-lumina-tarot` | **Update** to the latest release (pinned versions stay put)    |
+| `dsh plugin --profile web remove dsh-lumina-tarot` | **Uninstall.** Preferences and history are kept                |
+| `dsh --profile web --dump-config`                  | **Verify** the install. Look for `# == dsh-lumina-tarot`       |
 
 A few notes:
 
